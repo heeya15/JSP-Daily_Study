@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<list key="CommitDialog.authorValues">
+		<item value="KimKwangHui &lt;https://github.com/heeya15/JSP-Daily_Study&gt;"/>
+	</list>
+	<list key="CommitDialog.committerValues">
+		<item value="KimKwangHui &lt;https://github.com/heeya15/JSP-Daily_Study&gt;"/>
+	</list>
+	<section name="org.eclipse.egit.ui.internal.staging.StagingView">
+		<item key="HORIZONTAL_SASH_FORM_WEIGHT" value="500,500"/>
+		<item key="STAGING_SASH_FORM_WEIGHT" value="500,500"/>
+		<item key="sortItemState" value="false"/>
+	</section>
+	<section name="GitCommitMessageComponent">
+		<list key="C:\JSP폴더\test1\WebMarket\.git">
+			<item value="false"/>
+			<item value="KimKwangHui &lt;https://github.com/heeya15/JSP-Daily_Study&gt;"/>
+			<item value="2020-12-05 include 디렉티브 태그를 사용한 웹 쇼핑몰 시작 페이지 실습"/>
+			<item value="KimKwangHui &lt;https://github.com/heeya15/JSP-Daily_Study&gt;"/>
+			<item value="0000000000000000000000000000000000000000"/>
+			<item value="0"/>
+			<item value="false"/>
+		</list>
+	</section>
+	<section name="org.eclipse.egit.ui.internal.reflog.RefSelectionDialog.dialogBounds">
+		<item key="DIALOG_X_ORIGIN" value="663"/>
+		<item key="DIALOG_Y_ORIGIN" value="168"/>
+		<item key="DIALOG_WIDTH" value="613"/>
+		<item key="DIALOG_HEIGHT" value="534"/>
+		<item key="DIALOG_FONT_NAME" value="1|맑은 고딕|9.0|0|WINDOWS|1|-15|0|0|0|400|0|0|0|1|0|0|0|0|맑은 고딕"/>
+	</section>
+	<section name="GitImportWizard">
+	</section>
+</section>

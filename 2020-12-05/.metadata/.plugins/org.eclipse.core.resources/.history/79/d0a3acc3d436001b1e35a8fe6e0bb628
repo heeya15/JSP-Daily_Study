@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
+    <wb-module deploy-name="Forward_Actiontag">
+        <wb-resource deploy-path="/" source-path="/WebContent" tag="defaultRootSource"/>
+        <property name="context-root" value="Forward_Actiontag"/>
+        <property name="java-output-path" value="/Forward_Actiontag/build/classes"/>
+    </wb-module>
+</project-modules>

@@ -1,0 +1,15 @@
+<html>
+<head>
+     <title> Scripting Tag</title>
+</head>
+<body>
+    <h1> Scripting tag</h1>
+     Nice meet you too
+     <%! int count =3;
+      String makeItLower(String data){
+    	  return data.toLowerCase();
+    	  
+      }
+     %>
+</body>
+</html>

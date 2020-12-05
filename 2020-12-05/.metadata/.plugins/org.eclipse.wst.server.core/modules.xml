@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<modules>
+  <module moduleId="org.eclipse.jst.jee.server:Book" serverId="Tomcat v8.5 Server at localhost (2)"/>
+  <module moduleId="org.eclipse.jst.jee.server:Forward_Actiontag" serverId="Tomcat v8.5 Server at localhost"/>
+  <module moduleId="org.eclipse.jst.jee.server:WebMarket" serverId="Tomcat v8.5 Server at localhost"/>
+</modules>
