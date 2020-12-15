@@ -33,11 +33,29 @@ public class ProductRepository {
 		
 	}
 	/*
-	  [ 상품 목록을 가져오는 ] 메소드 만들기 
-	  객체 타입의 변수 listOfProducts 에 저장된 모든 상품 목록을 가져오는 getAllProducts()메소드를 작성
+	  [ ** 상품 목록 **을 가져오는 ] 메소드 만들기 
+	  객체 타입의 변수 listOfProducts 에 [ 저장된 모든 상품 목록을 가져오는 ] getAllProducts()메소드를 작성
 	 */
 	public ArrayList<Product> getAllProducts(){
 		return listOfProducts;
 	}
+	/* p, 173 [ 상품 상세 정보를 가져오는 ] 메소드 만들기 부분
+	   1. 45행에서 60행까지는 listOfProducts에 [ 저장된 모든 상품 목록 ]에서 
+	   2. [ 상품 아이디와 [ 일치하는 상품을 가져오는 ] ] getProductById() 메소드를 작성 
+	*/
+	public Product getProductById(String productId) {
+		Product productById = null;
 		
+		for (int i=0; i<listOfProducts.size();i++) {
+			Product product =listOfProducts.get(i);
+			//  product 객체에 있는 상품목록중 상품 id가 [ 인수로 넘어온 id와 ] 일치하는경우 
+			// [ 해당 상품아이디를 ] 리턴한다(가져온다).
+			if(product !=null && product.getProductId()!=null
+			   && product.getProductId().equals(productId)) { 
+				productById = product;
+				break;
+			}//if 문 블록 닫기 
+		}//for 문블록 닫기
+		return productById;	
+	}		
 }

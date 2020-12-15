@@ -37,6 +37,10 @@
     			<h3><%=product.getPname() %></h3>
     			<p><%=product.getDescription() %>
     			<p><%=product.getUnitPrice() %>원
+    			<%--p,173 [ 상품 상세정보 버튼 ]만들기 부분
+    			&raquo는 [ HTML 특수문자 ] ">>"기호를 만들어 준다. --%>
+    			<p> <a href="product.jsp?id=<%=product.getProductId()%>"
+    			class="btn btn-secondary" role="button">상세정보 &raquo;</a>
     		</div>
     		<%
     			} // 32행 for문(반복문) 블록 닫는 [ 스크립틀릿 태그 작성 ]
@@ -44,6 +48,7 @@
     	</div>
     	<hr>
 	</div>	
+	
 	<jsp:include page="footer.jsp"/>
 </body>
 </html>

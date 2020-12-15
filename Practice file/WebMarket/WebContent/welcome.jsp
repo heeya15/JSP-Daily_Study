@@ -28,6 +28,7 @@
 	</div>	
 	<%--30행 부터 45행은 [ 선언문 태그로 현재 접속 시각을 출력하기 위해 ] 작성한 코드.  --%>
 	<%
+	   response.setIntHeader("Refresh", 5);//5초마다 jsp 페이지가 갱신되도록 작성
 	   Date day = new java.util.Date();
 	   String am_pm;
 	   int hour = day.getHours();
