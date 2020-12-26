@@ -8,4 +8,8 @@
 	<list key="J2EE_EXPORT_JST_WEB">
 		<item value="C:\JSP폴더\test1\WebMarket.war"/>
 	</list>
+	<list key="J2EE_IMPORT_null">
+		<item value="C:\JSP폴더\test1\Lab-scale.war"/>
+		<item value="C:\Users\choon\OneDrive\Desktop\Lab-scale\Lab-scale.war"/>
+	</list>
 </section>

@@ -1,0 +1,18 @@
+
+12월 06, 2020 17:06:27.87 NEW SESSION
+12월 06, 2020 17:06:27.87 [15168:15064:1206/170627.083:ERROR:device_event_log_impl.cc(208)] [17:06:27.083] USB: usb_device_handle_win.cc:1020 Failed to read descriptor from node connection: 시스템에 부착된 장치가 작동하지 않습니다. (0x1F)
+12월 06, 2020 17:06:27.480 [15168:3700:1206/170627.480:ERROR:connection_factory_impl.cc(428)] Failed to connect to MCS endpoint with error -106
+12월 06, 2020 17:21:57.806 [3392:2508:1206/172157.805:ERROR:device_event_log_impl.cc(208)] [17:21:57.805] USB: usb_device_handle_win.cc:1020 Failed to read descriptor from node connection: 시스템에 부착된 장치가 작동하지 않습니다. (0x1F)
+12월 06, 2020 17:22:19.801 [13432:7144:1206/172219.801:ERROR:device_event_log_impl.cc(208)] [17:22:19.802] USB: usb_device_handle_win.cc:1020 Failed to read descriptor from node connection: 시스템에 부착된 장치가 작동하지 않습니다. (0x1F)
+12월 06, 2020 17:32:14.169 [1206/173214.167:ERROR:directory_reader_win.cc(43)] FindFirstFile: 지정된 경로를 찾을 수 없습니다. (0x3)
+
+12월 07, 2020 11:31:11.02 NEW SESSION
+12월 07, 2020 11:31:11.02 [8184:4784:1207/113110.999:ERROR:get_updates_processor.cc(257)] PostClientToServerMessage() failed during GetUpdates with error 2
+
+12월 07, 2020 11:45:33.609 NEW SESSION
+12월 07, 2020 11:45:33.609 [4512:14368:1207/114533.606:ERROR:device_event_log_impl.cc(208)] [11:45:33.606] USB: usb_device_handle_win.cc:1020 Failed to read descriptor from node connection: 시스템에 부착된 장치가 작동하지 않습니다. (0x1F)
+
+12월 15, 2020 16:14:02.84 NEW SESSION
+12월 15, 2020 16:14:02.84 [3452:12248:1215/161402.082:ERROR:device_event_log_impl.cc(211)] [16:14:02.082] USB: usb_device_handle_win.cc:1020 Failed to read descriptor from node connection: 시스템에 부착된 장치가 작동하지 않습니다. (0x1F)
+12월 15, 2020 16:23:55.42 [15592:8656:1215/162355.041:ERROR:device_event_log_impl.cc(211)] [16:23:55.042] USB: usb_device_handle_win.cc:1020 Failed to read descriptor from node connection: 시스템에 부착된 장치가 작동하지 않습니다. (0x1F)
+12월 15, 2020 16:33:52.380 [1215/163352.379:ERROR:directory_reader_win.cc(43)] FindFirstFile: 지정된 경로를 찾을 수 없습니다. (0x3)

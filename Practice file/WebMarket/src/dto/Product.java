@@ -85,9 +85,5 @@ public class Product implements Serializable{
 		}
 		public void setCondition(String condition) {
 			this.condition = condition;
-		}
-		
-		
-		
-		
+		}		
 }

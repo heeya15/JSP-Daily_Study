@@ -54,7 +54,7 @@ public class ProductRepository {
 			   && product.getProductId().equals(productId)) { 
 				productById = product;
 				break;
-			}//if 문 블록 닫기 
+			}//if 믄 블록 닫기 
 		}//for 문블록 닫기
 		return productById;	
 	}		
