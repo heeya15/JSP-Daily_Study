@@ -2,8 +2,9 @@
 	pageEncoding="UTF-8"%>
 <%@ page import="dto.Product" %> <%--dto.Product 패키지를 사용하기위해 작성. 
                                      [ page 디렉티브태그 ]의 import속성작성 --%>
-<%--자바빈즈로 작성한 [ ProductRepository 클래스를 ] 사용하도록 useBean 액션 태그를 작성  --%>
-<jsp:useBean id="productDAO" class = "dao.ProductRepository" scope ="session"/>
+<%--p,209 )기존의 useBean 액션 태그를 삭제하고 상품 접근 클래스 패키지로 변경한다 --%>
+<%@ page import="dao.ProductRepository" %> <%--dao.ProductRepository 패키지를 사용하기위해 작성. --%>
+
 <html>
 <head>
 <link rel = "stylesheet" href= "https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
@@ -18,14 +19,16 @@
     	</div>
 	</div>
 	<% 
-		/*21행은 products.jsp를실행후 상세정보 버튼을 눌러서 상품 코드가 P1234인 상품을 눌러 상세정보를 보려고할경우 
-		주소창에는 http://localhost:9090/WebMarket/product.jsp?id=P1234 에서
+		/* products.jsp를실행후 [ 상세정보 버튼을 눌러 ]서 상품 코드가 P1234인 상품을 눌러
+		상세정보를 보려고할경우 주소창에는 http://localhost:9090/WebMarket/product.jsp?id=P1234 에서
 		[ P1234를 ] 들고와서 id 변수에 저장.*/
 	   String id = request.getParameter("id");
-		/*그 후 useBean 액션 태그에 id속성값을 통해 ProductRepository클래스에 getProductById()메소드를 호출하여
+		/* p, 209 
+		그 후, ProductRepository클래스에 getProductById()메소드를 호출하여
 		반환된 결과 값을 Product 객체타입 변수 product에 저장함. 
 		즉, 넘겨받은 [ id에 저장된 상품 코드가 ]  Product 객체중 [ 기존에 저장되어있는 상품코드가 있을경우 저장 ]. */
-	   Product product = productDAO.getProductById(id);
+	   ProductRepository dao = ProductRepository.getInstance();
+	   Product product = dao.getProductById(id);
 	%>
 		
 	<div class = "container">

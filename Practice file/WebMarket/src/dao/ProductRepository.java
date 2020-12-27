@@ -2,11 +2,21 @@ package dao;
 import java.util.ArrayList;
 import dto.Product;
 public class ProductRepository {
-	//상품 목록을 저장하기 위한 ArrayList<Product> 객체 타입의 변수 [ listOfProduct를 작성 ]
+	//[ 상품 목록을 저장 ]하기 위한 ArrayList<Product> 객체 타입의 변수 [ listOfProduct를 작성 ]
 	private ArrayList<Product> listOfProducts = new ArrayList<Product>();
-
+	
+	//아래 9번줄은 p, 206 ProductRepository 클래스의 [ 기본 생성자에 대한 ] **객체변수** 작성.
+	private static ProductRepository instance = new ProductRepository();
+	public static ProductRepository getInstance() { //객체 변수 instance에 대한 Getter() 메소드를 작성
+		return instance;
+	}
+	
+	public void addProduct(Product product) { //객체 변수 listOfProducts에 새로운 상품 정보를 등록하는 메소드.
+		listOfProducts.add(product);
+	}
+	//위에까지 p, 206 부분
 	public ProductRepository() { //기본생성자 생성
-		//3개의 상품 정보를 설정하고 ArrayList<Product> 객체 타입의 변수 [ listOfProduct에 저장하도록 작성 ].
+		//3개의 [ 상품 정보를 설정 ]하고 ArrayList<Product> 객체 타입의 변수 [ listOfProduct에 저장하도록 작성 ].
 		Product phone = new Product("P1234", "iPhone 6s", 800000);
 		phone.setDescription("4.7-inch, 1334X750 Renina HD display,8-megapixel iSight Camera");
 		phone.setCategory("Smart Phone"); //분류
@@ -57,5 +67,6 @@ public class ProductRepository {
 			}//if 믄 블록 닫기 
 		}//for 문블록 닫기
 		return productById;	
-	}		
+	}	
+	
 }
