@@ -17,6 +17,13 @@ public class Product implements Serializable{
 		private long unitsInStock;    // 재고 수
 		private String condition;     // 신상품 or 중고품 or 재생품
 		
+		private String filename;      // p, 239 [ 이미지 파일명 ]
+		public String getFilename() {
+			return filename;
+		}
+		public void setFilename(String filename) {
+			this.filename = filename;
+		}
 		/*
 		 [ 기본생성자 ] 자동으로 추가하는 방법은 [ Source ] - Generate Constructors from Superclass 메뉴클릭하고
 		 창이 나타나면 'Object'를 선택하고 <Ok>를 클릭하여 [ 기본 생성자를 자동으로 추가 생성. ]

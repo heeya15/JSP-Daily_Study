@@ -3,8 +3,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel = "stylesheet" href= "https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-<script type="./resources/js/validation.js"></script>
+<link rel = "stylesheet" href= "./resources/css/bootstrap.min.css">
 <title>상품 등록</title>
 </head>
 <body>
@@ -16,8 +15,9 @@
     	</div>
 	</div>
 	<div class = "container">
+	    <%--p, 243 enctype 추가 파일 전송을 위해 사용 --%>
 		<form name = "newProduct" action="./processAddProduct.jsp" class="form-horizontal" 
-		method="post">
+		method="post" enctype="multipart/form-data"> 
     		<div class = "form-group row" >
     			<label class="col-sm-2">상품 코드</label>
     			<div class="col-sm-3">
@@ -67,6 +67,13 @@
     				<input type="radio" name = "condition" value="New"> 신규 제품
     				<input type="radio" name = "condition" value="New"> 중고 제품
     				<input type="radio" name = "condition" value="Refurbished"> 재생 제품
+    			</div>
+    		</div>
+    		<%--p, 244 아래 이미지 label 부분은 [ 상품 이미지 파일 업로드하기위해 추가 작성 ]  --%>
+    		<div class = "form-group row" >
+    			<label class="col-sm-2">이미지</label>
+    			<div class="col-sm-5">
+    				<input type="file" name = "productImage" class ="form-control">
     			</div>
     		</div>
     		<div class = "form-group row" >

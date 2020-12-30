@@ -12,8 +12,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel = "stylesheet" href= "https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-<title>상품목록</title>
+<link rel = "stylesheet" href= "./resources/css/bootstrap.min.css">
+<title>상품 목록</title>
 </head>
 <body>
 	<%--include [ 액션 태그를 만나 ] 하던 작업을 멈추고 프로그램 제어를 menu.jsp로 이동. --%>
@@ -43,8 +43,13 @@
     			for(int i=0; i<listOfProducts.size();i++){ // 상품 목록 개수만큼 반복 
     				Product product =listOfProducts.get(i); //상품 정보를 가져와 Product 객체타입의 변수 Product에 저장. 			
     		%>
-    		<%--[ 37행에서 39행은 ] 상품명, 상품 상세정보, 상품 가격을 출력하는 [ 표현문 태그 ] --%>
+    		<%--[ 아래 div태그 안에 행은 ] 상품명, 상품 상세정보, 상품 가격을 출력하는 [ 표현문 태그 ] --%>
     		<div class ="col-md-4">
+    			<%-- p, 241 아래 img 태그는 상품 이미지를 출력하기위해 추가 
+    			<img src="./resources/images/<%=product.getFilename() %>" 
+    			style="width: 100%"> --%>
+    			<%-- p, 243 아래 img 태그는 아래 경로에 저장된 상품 이미지를 출력하기 --%>
+    			<img src="./upload/<%=product.getFilename()%>" style="width: 100%"/>
     			<h3><%=product.getPname() %></h3>
     			<p><%=product.getDescription() %>
     			<p><%=product.getUnitPrice() %>원
@@ -58,8 +63,7 @@
     		%>
     	</div>
     	<hr>
-	</div>	
-	
+	</div>		
 	<jsp:include page="footer.jsp"/>
 </body>
 </html>

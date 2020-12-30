@@ -7,7 +7,7 @@
 
 <html>
 <head>
-<link rel = "stylesheet" href= "https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+<link rel = "stylesheet" href= "./resources/css/bootstrap.min.css">
 <title>상품 상세 정보</title>
 </head>
 <body>
@@ -30,9 +30,16 @@
 	   ProductRepository dao = ProductRepository.getInstance();
 	   Product product = dao.getProductById(id);
 	%>
-		
+	
 	<div class = "container">
-    	<div class = "row" >
+    	<div class = "row" > <%--한행에 2개의 div영역으로 나눠서 출력 시키기 위해 영역 구분지음. --%>
+    	<%-- p, 242 아래 img 태그는 상품 이미지를 출력하기위해 추가 
+    	   <img src="./resources/images/<%=product.getFilename() %>" style="width: 100%"> 
+    	    --------------------------------------------------------------------------------
+    	     p, 243 아래 div 안에, 아래 img 태그는 아래 경로에 [ 저장된 상품 이미지를 출력 ]하기 위해 추가작성.--%>
+    		<div class = "col-md-5">
+    			<img src="./upload/<%=product.getFilename()%>" style="width: 100%"/>  
+	       </div>	
     		<div class="col-md-6">
     			<h3><%=product.getPname() %></h3>
     			<h3><%=product.getDescription() %></h3>
