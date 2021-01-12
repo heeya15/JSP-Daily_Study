@@ -49,12 +49,30 @@
     			<p><b>분류 </b> :<%=product.getCategory() %>
     			<p><b>재고 수 </b> :<%=product.getUnitsInStock() %>
     			<h4><%=product.getUnitPrice() %>원</h4>
-    			<p> <a href="#" class="btn btn-info">상품 주문 &raquo;</a>
-    			<a href="./products.jsp" class="btn btn-secondary">상품 목록 &raquo;</a>
+    			<%--p,439 장바구니 등록하기위해 추가 작성부분. 
+    				form 태그 추가.
+    				[상품 주문을 클릭]하면 핸들러 함수 addToCart()가 실행되도록 onclick 작성--%>
+    			<p><form name ="addForm" action = "./addCart.jsp?id=<%=product.getProductId()%>"
+    			     method ="post">
+    			   <a href="#" class="btn btn-info" onclick="addToCart()">상품 주문 &raquo;</a>
+    			   <a href="./cart.jsp" class="btn btn-warning" > 장바구니 &raquo;</a>
+    			   <a href="./products.jsp" class="btn btn-secondary">상품 목록 &raquo;</a>
+    			</form>
     		</div>			
     	</div>
     	<hr>
-	</div><%--31행 div태그 닫는부분 --%>
+	</div>
 	<jsp:include page="footer.jsp"/>
 </body>
+<script type="text/javascript">
+	function addToCart() { //장바구니에 등록하기 위한 [ 핸들러 함수 작성. ]
+		var form = document.addForm;
+		if(confirm("상품을 장바구니에 추가하시겠습니까?")){ //메시지창을 뛰우고 [ 확인을] 클릭시. 
+			form.submit();// 폼 페이지에서 입력한 데이터 값을 [ 서버로 전송 ]합니다. (수동 submit 처리)
+		}
+		else{ //취소를 클릭하면 [ 폼 문의 실행을 취소. ]
+			form.reset();
+		}	
+	}
+</script>
 </html>

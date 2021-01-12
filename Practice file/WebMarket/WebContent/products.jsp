@@ -40,7 +40,7 @@
 	<div class = "container">
     	<div class = "row" align ="center">
     		<%
-    			for(int i=0; i<listOfProducts.size();i++){ // 상품 목록 개수만큼 반복 
+    			for(int i=0; i<listOfProducts.size();i++){ // [ 상품 목록 개수 ]만큼 반복 
     				Product product =listOfProducts.get(i); //상품 정보를 가져와 Product 객체타입의 변수 Product에 저장. 			
     		%>
     		<%--[ 아래 div태그 안에 행은 ] 상품명, 상품 상세정보, 상품 가격을 출력하는 [ 표현문 태그 ] --%>

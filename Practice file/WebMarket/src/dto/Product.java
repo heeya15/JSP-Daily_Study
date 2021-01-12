@@ -18,6 +18,15 @@ public class Product implements Serializable{
 		private String condition;     // 신상품 or 중고품 or 재생품
 		
 		private String filename;      // p, 239 [ 이미지 파일명 ]
+		
+		private int quantity;         // p,438 [ 장바구니에 담은 개수 ]
+		public int getQuantity() {
+			return quantity;
+		}
+		public void setQuantity(int quantity) {
+			this.quantity = quantity;
+		}
+		
 		public String getFilename() {
 			return filename;
 		}
@@ -28,7 +37,7 @@ public class Product implements Serializable{
 		 [ 기본생성자 ] 자동으로 추가하는 방법은 [ Source ] - Generate Constructors from Superclass 메뉴클릭하고
 		 창이 나타나면 'Object'를 선택하고 <Ok>를 클릭하여 [ 기본 생성자를 자동으로 추가 생성. ]
 		*/
-		public Product() { //기본 생성자를 자동으로 추가
+		public Product() { //[ 기본 생성자 ]를 자동으로 추가
 			super();
 		}
 		/* 
