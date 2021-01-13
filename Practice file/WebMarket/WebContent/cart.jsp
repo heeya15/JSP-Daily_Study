@@ -1,15 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.util.ArrayList" %>
-<%@ page import = "dto.Product" %>
-<%@ page import = "dao.ProductRepository" %>
-
-<!DOCTYPE html>
+<%@ page import="dto.Product" %><%--dto.Product 패키지를 사용하기위해 작성. --%>
+<%@ page import="dao.ProductRepository" %> <%--dao.ProductRepository 패키지를 사용하기위해 작성. --%>
 <html>
 <head>
-<!-- 합쳐지고 최소화된 최신 CSS -->
 <link rel="stylesheet" href="./resources/css/bootstrap.min.css">
 <%
-	String cartId = session.getId();
+	String cartId = session.getId(); //[ 세션 할당된 ] 고유 ID를 가져옴.
 %>
 <title>장바구니</title>
 </head>
@@ -22,58 +19,72 @@
 	</div>
 
 	<div class="container">
+		<%--하나의 테이블에서 한개의 행에 [ 왼쪽에 ] 삭제하기, [ 오른쪽에 ] 주문하기 버튼을 생성. --%> 
 		<div class="row">
 			<table width="100%">
 				<tr>
 					<td align="left"><a href="./deleteCart.jsp?cartId=<%=cartId %>" 
 					    class="btn btn-danger">삭제하기</a></td>
-					<td align="right"><a href="./shippingInfo.jspcartId=<%=cartId %>" 
+					<td align="right"><a href="#" 
 					    class="btn btn-success">주문하기</a></td>
 				</tr>
 			</table>
+		</div><%--하나의 레이아웃을 나눔. --%>
+		
+		<div style="padding-top: 50px">
+			<table class="table table-hover">
+				<tr>
+					<th>상품</th>
+					<th>가격</th>
+					<th>수량</th>
+					<th>소계</th>
+					<th>비고</th>				
+				</tr>
+				<%
+					int sum = 0;
+				/* 49행은: 
+				  [ 세션에 저장된 ] [ 세션 속성이름 cartlist(장바구니)를 ]
+				  session 내장 객체의 getAttribute() 메소드를 통해 [ 속성값을 가져옴 ] - 형변환 필수!
+				*/
+					ArrayList<Product> cartList = (ArrayList<Product>)session.getAttribute("cartlist");
+				
+					if(cartList == null){//만약 [ 저장된 상품 목록이 없으면 ] [ 장바구니 cartList를 생성. ]
+				   	   cartList = new ArrayList<Product>();
+					}
+					/* 57행은
+					   cartList(장바구니)에 등록된 모든 상품을 하나씩 가져와 출력.
+					*/
+					for(int i=0; i<cartList.size(); i++){ // 상품 리스트 하나씩 출력하기.
+						Product product = cartList.get(i);
+						int total = product.getUnitPrice() * product.getQuantity(); //해당 상품가격 * 개수.
+						sum = sum + total; //총액 계산
+				%>
+				<%-- 66행~ 73행은[ 하나의 행에 ] [ 5가지 열을 출력 ]합니다.  
+					- 상품id - 상품이름 형태 ex)P1235 - LG PC 그램
+					- 상품가격, 상품 수, 해당 상품 총합가격, [ 개별 상품 삭제버튼] 출력시킴
+				--%>
+				<tr>
+					<td><%=product.getProductId()%> - <%=product.getPname() %></td>
+					<td><%=product.getUnitPrice() %></td>
+					<td><%=product.getQuantity() %></td>
+					<td><%=total%></td> 
+					<td><a href="./removeCart.jsp?id=<%=product.getProductId()%>" 
+					       class="badge badge-danger"> 삭제</a></td>
+				</tr>
+				<%
+					} //57행 for 문 닫기.
+				%>
+				<tr>
+					<th></th>
+					<th></th>
+					<th>총액</th>
+					<th><%=sum%></th> <%--장바구니에 등록된 [ 모든 상품의 총액 출력. ] --%>
+					<th></th>
+				</tr>
+			</table>
+			<a href="./products.jsp" class="btn btn-secondary">&laquo; 쇼핑 계속하기</a>
 		</div>
-	<div style="padding-top: 50px">
-		<table class="table table-hover">
-			<tr>
-				<th>상품</th>
-				<th>가격</th>
-				<th>수량</th>
-				<th>소계</th>
-				<th>비고</th>				
-			</tr>
-			<%
-				int sum = 0;
-				ArrayList<Product> cartList = (ArrayList<Product>)session.getAttribute("cartlist");
-				if(cartList == null)
-			   	   cartList = new ArrayList<Product>();
-			
-				for(int i=0; i<cartList.size(); i++){ // 상품 리스트 하나씩 출력하기.
-					Product product = cartList.get(i);
-					int total = product.getUnitPrice() * product.getQuantity();
-					sum = sum + total;
-			%>
-			<tr>
-				<td><%=product.getProductId()%> - <%=product.getPname() %></td>
-				<td><%=product.getUnitPrice() %></td>
-				<td><%=product.getQuantity() %></td>
-				<td><%=total%></td>
-				<td><a href="./removeCart.jsp?id=<%=product.getProductId()%>" 
-				       class="badge badge-danger"> 삭제</a></td>
-			</tr>
-			<%
-			} //50행 for 문 닫기.
-			%>
-			<tr>
-				<th></th>
-				<th></th>
-				<th>총액</th>
-				<th><%=sum%></th>
-				<th></th>
-			</tr>
-		</table>
-		<a href="./products.jsp" class="btn btn-secondary">&laquo; 쇼핑 계속하기</a>
-	</div>
-	<hr>
+	<hr> <%--수평선 그리기 태그 (문단을 나누고 싶을때 사용.) --%>
 </div>
 <jsp:include page="footer.jsp" />
 </body>

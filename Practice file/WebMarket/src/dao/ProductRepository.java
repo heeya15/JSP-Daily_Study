@@ -53,7 +53,7 @@ public class ProductRepository {
 		return listOfProducts;
 	}
 	/* p, 173 [ 상품 상세 정보를 가져오는 ] 메소드 만들기 부분
-	   1. 45행에서 60행까지는 listOfProducts에 [ 저장된 모든 상품 목록 ]에서 
+	   1. 59행에서 73행까지는 listOfProducts에 [ 저장된 모든 상품 목록 ]에서 
 	   2. [ 상품 아이디와 [ 일치하는 상품을 가져오는 ] ] getProductById() 메소드를 작성 
 	*/
 	public Product getProductById(String productId) {
