@@ -25,7 +25,8 @@
 				<tr>
 					<td align="left"><a href="./deleteCart.jsp?cartId=<%=cartId %>" 
 					    class="btn btn-danger">삭제하기</a></td>
-					<td align="right"><a href="#" 
+					<%--29행 p,463 [ 배송정보 페이지로 이동하게 추가작성 ]. --%>
+					<td align="right"><a href="./shippingInfo.jsp?cartId=<%=cartId %>" 
 					    class="btn btn-success">주문하기</a></td>
 				</tr>
 			</table>
