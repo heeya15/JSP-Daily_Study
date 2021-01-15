@@ -55,8 +55,8 @@
 			<div class="form-group row">
 			 <%-- 이전, 등록, 취소 버튼을 작성. <이전> 버튼을 누르면 [ 이전 장바구니id를 통해 ] 장바구니 페이지로 이동. --%>
 			  <div class="col-sm-offset-2 col-sm-10">
-				 <a href="./cart.jsp?cartId=<%=request.getParameter("cartId")%>"
-				  class="btn btn-secondary" role="button"> 이전</a>
+				 <a href="./cart.jsp?cartId=<%=request.getParameter("cartId")%>" 
+				 class="btn btn-secondary" role="button"> 이전</a>
 				 <input type="submit" class="btn btn-primary" value="등록"/>
 				 <a href="./checkOutCancelled.jsp" class="btn btn-secondary" role="button">취소</a>
 			  </div>
