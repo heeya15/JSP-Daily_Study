@@ -5,6 +5,6 @@ CREATE TABLE member(
 	PRIMARY KEY (id)
 );
 
-select * from member order by ID DESC;
+select * from member ;
 
 DROP TABLE member purge;
