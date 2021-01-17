@@ -1,12 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>
 <!-- JSP에서 [ JDBC의 객체를 사용하기 위해 ] java.sql 패키지를 import 한다 -->
-<%@ page import="java.sql.*"%>
-<html>
-<head>
-<title>Database SQL</title>
-</head>
-<body>
+<%@ page import="java.sql.*" %>
 <%
 	/*
 	● Connection
@@ -22,26 +17,20 @@
 		String id = "jisung"; // 사용자 계정
 		String pw = "db2019"; // 사용자 계정의 패스워드
 		
-		/* 30행 드라이버 로딩 P, 517
+		/* 25행 드라이버 로딩 P, 517
 		 - JDBC 드라이버 로딩되면 [ 자동으로 객체가 생성 ]되고
 		 - [ 데이터베이스와 연동하기 위해 ] [ DriverManager 클래스에 등록 ]된다.
 		 - JDBC 드라이버 로딩은 [ 프로그램 수행 시 한 번만 ] 필요합니다.
 		*/
 		Class.forName(driver); 
-		/* 34행 
+		/* 29행 
 		 - DriverManager 객체로부터 [ 연결된 Connection 객체를 얻어온다. ]
 		*/
 		conn = DriverManager.getConnection(url, id, pw); 
-		out.println("데이터베이스 연결이 성공했습니다."); // 커넥션이 제대로 연결되면 수행된다.
+		out.println("데이터베이스 연결이 성공했습니다.<br>"); // 커넥션이 제대로 연결되면 수행된다.
 
 	} catch (SQLException ex) { // 예외가 발생하면 예외 상황을 처리한다.
 		out.println("데이터베이스 연결이 실패했습니다.<br>");
 		out.println("SQLException :" + ex.getMessage());
-
-	} finally {
-		if (conn != null) //연결이 된경우
-			conn.close(); //커넥션 객체를 해제
 	}
 %>
-</body>
-</html>
