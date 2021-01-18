@@ -5,6 +5,6 @@ CREATE TABLE member(
 	PRIMARY KEY (id)
 );
 
-select * from member ;
-
+select * from member order by ID;
+INSERT into MEMBER values('1','1234','관리자');
 DROP TABLE member purge;
