@@ -1,22 +1,23 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%-- 6행은 [ MultipartRequest 클래스를 사용 ]하도록
+ <%-- 6행은 [ MultipartRequest 클래스를 사용 ]하도록
  	 page 디렉티브 태그의 import 속성 값에 패키지를 작성 
  --%>
-<%@ page import="com.oreilly.servlet.*" %> 
- <%-- 10행은 DefaultFileRenamePolicy 클래스를 사용하도록
+<%@ page import="com.oreilly.servlet.*"%>
+<%-- 10행은 DefaultFileRenamePolicy 클래스를 사용하도록
  	  page 디렉티브 태그의 import 속성 값에 패키지를 작성 
  --%> 
-<%@ page import="com.oreilly.servlet.multipart.*" %>
-<%@ page import="java.util.*" %>
+<%@ page import="com.oreilly.servlet.multipart.*"%>
+<%@ page import="java.util.*"%>
+
 <%@ page import="java.io.*" %> <%--File 객체를 사용하기위해 사용. --%>
 <!-- JSP에서 [ JDBC의 객체를 사용하기 위해 ] java.sql 패키지를 import 한다 -->
 <%@ page import="java.sql.*"%>
-
 <%@ include file="dbconn.jsp"%><%--해당 데이터베이스에 접속하는 파일. --%>
-<%  
-	request.setCharacterEncoding("UTF-8");
 
+<%
+	request.setCharacterEncoding("UTF-8");
+	
 	/* p,245 [ 24행~28행 부분 ]
 	서버의 "C:\\JSP폴더\\test1\\WebMarket\\WebContent\\upload" 경로에 저장, 파일의 최대 크기는 5MB, 
 	[ 파일명 인코딩 유형 ]은 utf-8로 설정
@@ -28,7 +29,7 @@
 	String encType ="utf-8"; // 파일명 인코딩 유형
 	MultipartRequest multi = new MultipartRequest (request,realFolder,
 			                  maxSize, encType, new DefaultFileRenamePolicy());
-
+	
 	String productId = multi.getParameter("productId");
 	String name = multi.getParameter("name");
 	String unitPrice = multi.getParameter("unitPrice");
@@ -37,6 +38,7 @@
 	String category = multi.getParameter("category");
 	String unitInStock = multi.getParameter("unitInStock"); //재고수 
 	String condition = multi.getParameter("condition"); //상태
+	
 	Integer price; //변수 선언.
 	
 	if(unitPrice.isEmpty()) //상품가격 변수에 값이 없으면 가격을 0원으로 저장.
@@ -67,39 +69,55 @@
 	 }
 	
 	 PreparedStatement pstmt = null; //PreparedStatement 객체를 null로 초기화
+	 ResultSet rs = null; // 각 객체를 null로 초기화.--> Select한 결과를 저장받기위해 선언.
 	 try {
-			//22행: 테이블의 각 필드에 폼 페이지에 전송된 [ 아이디,비밀번호, 이름을 삽입하도록 insert 문 ] 작성.
-		String sql = "INSERT INTO product VALUES(?,?,?,?,?,?,?,?,?)"; 
-		
-		pstmt  = conn.prepareStatement(sql); // PreparedStatement 객체를 생성
-		// 폼페이지에 전송된 [ 정해지지않는 값을 product 테이블에 삽입하도록 작성 ].
-		pstmt.setString(1, productId); 
-		pstmt.setString(2, name);
-		pstmt.setString(3, unitPrice);
-		pstmt.setString(4, description); 
-		pstmt.setString(5, manufacturer);// 제조사
-		pstmt.setString(6, category); //분류
-		pstmt.setString(7, unitInStock); //상품 재고수
-		pstmt.setString(8, condition);
-		pstmt.setString(9, fileName);
-		/* 90 행:
-	      - INSERT 문을 실행하도록 PreparedStatement 객체의 executeUpdate() 메소드 작성.
-	      - 여기서는 [ 매개변수 없음. ] Statement객체의 executeUpdate()메소드에 sql구문을 인수로 넣었음.
-		*/
-		pstmt.executeUpdate();
-			
-		out.println("Product 테이블 삽입에 성공했습니다.<br>");// [ 삽입 성공 ]하면 메시지를 출력.
-			
-		} catch (SQLException ex) { // 예외가 발생하면 예외 상황을 처리한다.
-			out.println("Product 테이블 삽입이 실패했습니다.<br>");
-			out.println("SQLException :" + ex.getMessage());
-		} finally {
-			 //-  진행된 순서의 [ 역방향 ]으로 [ 연결된 객체를 끊어준다. ]
-			 //- (ResultSet → PreparedStatement → Connection) 이때 사용되는 메서드는 close()이다.
-			if (pstmt != null) //연결이 된경우 
-				pstmt.close(); //Statement 객체를 해제
-			if (conn != null) //연결이 되면
-				conn.close(); //커넥션 객체를 해제
+		 String sql = "SELECT * FROM PRODUCT where p_id = ?";
+		 pstmt.setString(1, productId);
+		 pstmt.executeQuery();
+	 
+		if (rs.next()) {
+			if (fileName != null) { //요청 파라미터중 [ 이미지 파일이 있으면 ] 실행
+				sql = "UPDATE product SET p_name=?, p_unitPrice=?, p_description=?, p_manufacturer=?, p_category=?, p_unitsInStock=?, p_condition=?, p_fileName=? WHERE p_id=?";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, name);
+				pstmt.setInt(2, price);
+				pstmt.setString(3, description);
+				pstmt.setString(4, manufacturer);//제조사
+				pstmt.setString(5, category);//분류
+				pstmt.setLong(6, stock);//재고수
+				pstmt.setString(7, condition);
+				pstmt.setString(8, fileName);
+				pstmt.setString(9, productId);
+				pstmt.executeUpdate();
+			} else { //요청 파라미터중 [ 이미지 파일이 없으면 ] 실행
+				sql = "UPDATE product SET p_name=?, p_unitPrice=?, p_description=?, p_manufacturer=?, p_category=?, p_unitsInStock=?, p_condition=? WHERE p_id=?";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, name);
+				pstmt.setInt(2, price);
+				pstmt.setString(3, description);
+				pstmt.setString(4, manufacturer);
+				pstmt.setString(5, category);
+				pstmt.setLong(6, stock);
+				pstmt.setString(7, condition);
+				pstmt.setString(8, productId);
+				pstmt.executeUpdate();
+			}
 		}
-	response.sendRedirect("products.jsp");	// 설정한 URL 페이지(상품 목록페이지)로 강제 이동.
+	}catch (SQLException ex) { // 예외가 발생하면 예외 상황을 처리한다.
+		out.println("PRODUCT 테이블 수정이 실패했습니다.<br>");
+		out.println("SQLException :" + ex.getMessage());
+	} finally {
+		 //-  진행된 순서의 [ 역방향 ]으로 [ 연결된 객체를 끊어준다. ]
+		 //- (ResultSet → PreparedStatement → Connection) 이때 사용되는 메서드는 close()이다.
+		if (rs !=null)
+			rs.close();
+		if (pstmt != null) //연결이 된경우 
+			pstmt.close(); //PreparedStatement 객체를 해제
+		if (conn != null) //연결이 되면
+			conn.close(); //커넥션 객체를 해제
+			
+		response.sendRedirect("editProduct.jsp?edit=update");
+	}
 %>
+
+

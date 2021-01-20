@@ -1,69 +1,69 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ page import="java.util.ArrayList" %> <%--ArrayList 패키지를 사용하기위해 [ page 디렉티브 태그 ]의 import 속성 작성 --%>
-<%@ page import="dto.Product" %> <%--dto.Product 패키지를 사용하기위해 작성. --%>
-<%--p,209 )기존의 useBean 액션 태그를 삭제하고 상품 접근 클래스 패키지로 변경한다 --%>
-<%@ page import="dao.ProductRepository" %> <%--dao.ProductRepository 패키지를 사용하기위해 작성. --%>
-<%--
-<jsp:useBean id="productDAO" class = "dao.ProductRepository" scope ="session"/>
-자바빈즈로 작성한 ProductRepository 클래스를 사용하도록 useBean 액션 태그를 작성
-  --%>
-
+	pageEncoding="UTF-8"%>
+<!-- JSP에서 [ JDBC의 객체를 사용하기 위해 ] java.sql 패키지를 import 한다 -->
+<%@ page import="java.sql.*"%>
 <html>
 <head>
-<meta charset="UTF-8">
-<link rel = "stylesheet" href= "./resources/css/bootstrap.min.css">
+<link rel="stylesheet" href="./resources/css/bootstrap.min.css">
 <title>상품 목록</title>
 </head>
 <body>
 	<%--include [ 액션 태그를 만나 ] 하던 작업을 멈추고 프로그램 제어를 menu.jsp로 이동. --%>
-	<jsp:include page="menu.jsp"/> 
-    <div class = "jumbotron">
-    	<div class = "container">
-    		<h1 class= "display-3">상품목록</h1>
-    	</div>
+	<jsp:include page="menu.jsp" />
+	<div class="jumbotron">
+		<div class="container">
+			<h1 class="display-3">상품 목록</h1>
+		</div>
 	</div>
-	<% /*
-	    [ useBean 액션 태그의 id속성값 productDAO를 통해 ] ProductRepository 클래스의
-	    getAllProducts() 메소드를 호출하여 [ 반환된 값을 ] 
-	    ArrayList<Product> 객체 타입의 변수 [ listOfProducts에 저장. ]
-	    ex) ArrayList<Product> listOfProducts = productDAO.getAllProducts();
-	    */
-	    /*
-	    p,209 ProductRepository 클래스의 getAllProducts()메소드를 호출하여 
-	    ** 모든 상품 목록(새로 입력된 상품포함.) **을 들고와 [ 배열 객체타입 변수에 저장 ]
-	    */
-	    ProductRepository dao = ProductRepository.getInstance();
-		ArrayList<Product> listOfProducts = dao.getAllProducts(); 
-	%>
-		
-	<div class = "container">
-    	<div class = "row" align ="center">
-    		<%
-    			for(int i=0; i<listOfProducts.size();i++){ // [ 상품 목록 개수 ]만큼 반복 
-    				Product product =listOfProducts.get(i); //상품 정보를 가져와 Product 객체타입의 변수 Product에 저장. 			
-    		%>
-    		<%--[ 아래 div태그 안에 행은 ] 상품명, 상품 상세정보, 상품 가격을 출력하는 [ 표현문 태그 ] --%>
-    		<div class ="col-md-4">
-    			<%-- p, 241 아래 img 태그는 상품 이미지를 출력하기위해 추가 
-    			<img src="./resources/images/<%=product.getFilename() %>" 
-    			style="width: 100%"> --%>
-    			<%-- p, 243 아래 img 태그는 아래 경로에 저장된 상품 이미지를 출력하기 --%>
-    			<img src="./upload/<%=product.getFilename()%>" style="width: 100%"/>
-    			<h3><%=product.getPname() %></h3>
-    			<p><%=product.getDescription() %>
-    			<p><%=product.getUnitPrice() %>원
-    			<%--p,173 [ 상품 상세정보 버튼 ]만들기 부분
+
+	<div class="container">
+		<div class="row" align="center">
+			<%@ include file="dbconn.jsp"%><%--해당 데이터베이스에 접속하는 파일. --%>
+			<%
+				PreparedStatement pstmt = null; //PreparedStatement 객체를 null로 초기화
+			    ResultSet rs = null; // 각 객체를 null로 초기화.--> Select한 결과를 저장받기위해 선언.
+			    try {
+					String sql = "SELECT * FROM product";
+					pstmt = conn.prepareStatement(sql); // PreparedStatement 객체를 생성
+					rs = pstmt.executeQuery(); //SELECT 문을 실행할때 executeQuery() 메소드 사용.
+
+					while (rs.next()) {// SELECT문으로 가져온 첫행 부터 다음행으로 커서를 넘기면서 (다음행이 없을때 종료)
+			%>
+			<%--[ 아래 div태그 안에 행은 ] 상품명, 상품 상세정보, 상품 가격을 출력하는 [ 표현문 태그 ] --%>
+			<div class="col-md-4">
+				<%-- p, 554 아래 img 태그는 아래 경로에 저장된 상품 이미지를 출력하기 --%>
+				<img src="./upload/<%=rs.getString("p_fileName")%>" style="width: 100%" />
+				<%-- p, 535 getXXX -->필드의 값을 설정한XXX형태로 가져옵니다. --%>
+				<h3><%=rs.getString("p_name")%></h3>
+				<p><%=rs.getString("p_description")%>
+				<p><%=rs.getInt("p_unitprice")%>원 
+				<%--p,173 [ 상품 상세정보 버튼 ]만들기 부분
     			&raquo는 [ HTML 특수문자 ] ">>"기호를 만들어 준다. --%>
-    			<p> <a href="product.jsp?id=<%=product.getProductId()%>"
-    			class="btn btn-secondary" role="button">상세정보 &raquo;</a>
-    		</div>
-    		<%
-    			} // 32행 for문(반복문) 블록 닫는 [ 스크립틀릿 태그 작성 ]
-    		%>
-    	</div>
-    	<hr>
-	</div>		
-	<jsp:include page="footer.jsp"/>
+				<p>
+					<a href="product.jsp?id=<%=rs.getString("p_id")%>"
+						class="btn btn-secondary" role="button">상세정보 &raquo;</a>
+			</div>
+			<%
+					} // 30행 while문(반복문) 블록 닫는 [ 스크립틀릿 태그 작성 ]
+				} 
+			    catch (SQLException ex) { // 예외가 발생하면 예외 상황을 처리한다.
+					out.println("Product 테이블 호출이 실패했습니다.<br>");
+				    out.println("SQLException :" + ex.getMessage());
+				} 
+			    finally {
+					//-  진행된 순서의 [ 역방향 ]으로 [ 연결된 객체를 끊어준다(해제) ]. ]
+					//- (ResultSet → PreparedStatement → Connection) 이때 사용되는 메서드는 close()이다.
+					if (rs != null)
+						rs.close();
+					if (pstmt != null) //연결이 된경우 
+						pstmt.close(); //Statement 객체를 해제
+					if (conn != null) //연결이 되면
+						conn.close(); //커넥션 객체를 해제
+				}
+			%>
+		</div>
+		<hr>
+	</div>
+	<jsp:include page="footer.jsp" />
 </body>
 </html>
