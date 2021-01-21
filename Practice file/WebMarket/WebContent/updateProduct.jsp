@@ -14,7 +14,7 @@
 			<h1 class="display-3">상품 수정</h1>
 		</div>
 	</div>
-	<%@ include file="dbconn.jsp"%>
+	<%@ include file="dbconn.jsp"%><%--해당 데이터베이스에 접속하는 파일. --%>
 	<%
 		String productId = request.getParameter("id");
 	
@@ -24,8 +24,8 @@
 		String sql = "SELECT * FROM PRODUCT WHERE p_id = ?";
 		pstmt = conn.prepareStatement(sql);
 		pstmt.setString(1, productId);
-		rs = pstmt.executeQuery();
-		if (rs.next()) {
+		rs = pstmt.executeQuery(); //SELECT 문을 실행할때 executeQuery() 메소드 사용.
+		if (rs.next()) { // 첫행 부터 다음행으로 커서를 넘기면서 (다음행이 없을때 종료)
 	%>
 	<div class="container">
 		<div class="row">
@@ -89,7 +89,7 @@
 					<div class="form-group row">
 						<label class="col-sm-2">제고 수</label>
 						<div class="col-sm-3">
-							<input type="text" id="unitsInStock1" name="unitsInStock"
+							<input type="text" id="unitsInStock" name="unitsInStock"
 								class="form-control" value="<%=rs.getInt("p_unitsinstock")%>">
 						</div>
 					</div>
@@ -116,7 +116,7 @@
 					</div>
 				</form>
 
-			</div>
+			</div> <%--37행 div태그 닫는부분. --%>
 		</div>
 	</div>
 	<%

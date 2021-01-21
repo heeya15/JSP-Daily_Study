@@ -8,8 +8,8 @@
 <title>상품 편집</title>
 <script type="text/javascript">
 	function deleteConfirm(id) {
-		if (confirm("해당 상품을 삭제합니다!!") == true)
-			location.href = "./deleteProduct.jsp?id=" + id;
+		if (confirm("해당 상품을 삭제합니다!!") == true) // 해당 메시지 선택창을 띄웁니다.(삭제한다고 할경우)
+			location.href = "./deleteProduct.jsp?id=" + id; // 해당id로 상품 삭제페이지로 이동시킨후 상품을 삭제한다.
 		else
 			return;
 	}
@@ -34,10 +34,10 @@
 				PreparedStatement pstmt =null; //PreparedStatement 객체를 null로 초기화
 				ResultSet rs =null; // 각 객체를 null로 초기화.--> Select한 결과를 저장받기위해 선언.
 				
-				String sql = "SELECT * FROM product";
+				String sql = "SELECT * FROM product"; // 상품 데이터 조회 쿼리문.
 				pstmt = conn.prepareStatement(sql);
-				rs = pstmt.executeQuery();
-				while (rs.next()){
+				rs = pstmt.executeQuery(); // SELECT문을 실행하도록 작성.
+				while (rs.next()){ // SELECT문으로 가져온 레코드가 있을때까지 반복.
 			%>
 			<div class="col-md-4">
 				<img src="./upload/<%=rs.getString("p_fileName")%>" style="width: 100%" />
@@ -45,13 +45,13 @@
 				<p><%=rs.getString("p_description")%>
 				<p><%=rs.getInt("p_UnitPrice")%>원
 				<p><%
-					  if(edit.equals("update")) {
+					  if(edit.equals("update")) { //edit값이 update인경우 <수정> 버튼을 출력
 					%>
 					<a href="./updateProduct.jsp?id=<%=rs.getString("p_id")%>"	
 					   class="btn btn-success" role="button"> 수정 &raquo;></a>
 					<%
 					  }//48행: if문 블록 닫기
-					  else if (edit.equals("delete")) {
+					  else if (edit.equals("delete")) { // edit값이 delete인경우 <삭제> 버튼을 출력.
 					%>
 						<%--p, 567~ 568 [ 상품 편집 페이지 작성 ]. 
 						  - <삭제> 버튼을 클릭하면 핸들러함수 

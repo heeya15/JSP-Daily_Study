@@ -5,7 +5,7 @@ CREATE TABLE product(
 	p_description CLOB, --설명 (문자형 대용량 데이터타입으로 설정)
 	p_manufacturer VARCHAR(20), --제조사
 	p_category VARCHAR(20), -- 분류
-	p_unitsinstock INTEGER, --재고수
+	p_unitsinstock NUMBER(6), --재고수
 	p_condition VARCHAR(20),
 	p_filename VARCHAR(20),
 	PRIMARY KEY (p_id)

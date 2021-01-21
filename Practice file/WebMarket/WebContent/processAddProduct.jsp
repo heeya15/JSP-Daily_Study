@@ -44,12 +44,12 @@
 	else // 상품가격 변수에 값이 있으면.
 		price =Integer.valueOf(unitPrice);// [ 문자열 상품가격을 ] 정수형으로 형변환시킨다.
 	
-	long stock;// 재고수
+	Integer stock;// 재고수
 	
 	if(unitInStock.isEmpty()) //[ 상품 재고수 변수 ]에 값이 없으면 재고 수 0으로 저장.
 		stock =0;
 	else // 상품가격 변수에 [ 값이 있으면. ]
-		stock =Long.valueOf(unitInStock);// [ 문자열 상품재고수를 ] Long형으로 형 변환시킨다.
+		stock =Integer.valueOf(unitInStock);// [ 문자열 상품재고수를 ] Long형으로 형 변환시킨다.
 	
 	/* p,246 부분 [ 62행에서 ~ 67행 추가작성 ]
 	  	1. MultipartRequest 객체타입의 getFileNames()메소드를 작성한 후 
@@ -68,18 +68,18 @@
 	
 	 PreparedStatement pstmt = null; //PreparedStatement 객체를 null로 초기화
 	 try {
-			//22행: 테이블의 각 필드에 폼 페이지에 전송된 [ 아이디,비밀번호, 이름을 삽입하도록 insert 문 ] 작성.
+			//72행: 테이블의 각 필드에 폼 페이지에 전송된 [ 데이터들을 삽입하도록 insert 문 ] 작성.
 		String sql = "INSERT INTO product VALUES(?,?,?,?,?,?,?,?,?)"; 
 		
 		pstmt  = conn.prepareStatement(sql); // PreparedStatement 객체를 생성
-		// 폼페이지에 전송된 [ 정해지지않는 값을 product 테이블에 삽입하도록 작성 ].
+		// 폼페이지에 전송된 [ 정해지지않는 값을 < product 테이블에 삽입 >하도록 작성 ].
 		pstmt.setString(1, productId); 
 		pstmt.setString(2, name);
-		pstmt.setString(3, unitPrice);
+		pstmt.setInt(3, price);
 		pstmt.setString(4, description); 
 		pstmt.setString(5, manufacturer);// 제조사
 		pstmt.setString(6, category); //분류
-		pstmt.setString(7, unitInStock); //상품 재고수
+		pstmt.setInt(7, stock); //상품 재고수
 		pstmt.setString(8, condition);
 		pstmt.setString(9, fileName);
 		/* 90 행:
@@ -100,6 +100,7 @@
 				pstmt.close(); //Statement 객체를 해제
 			if (conn != null) //연결이 되면
 				conn.close(); //커넥션 객체를 해제
+				
+			response.sendRedirect("products.jsp");	// 설정한 URL 페이지(상품 목록페이지)로 강제 이동.
 		}
-	response.sendRedirect("products.jsp");	// 설정한 URL 페이지(상품 목록페이지)로 강제 이동.
 %>

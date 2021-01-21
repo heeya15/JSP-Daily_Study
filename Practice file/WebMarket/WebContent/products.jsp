@@ -36,7 +36,7 @@
 				<%-- p, 535 getXXX -->필드의 값을 설정한XXX형태로 가져옵니다. --%>
 				<h3><%=rs.getString("p_name")%></h3>
 				<p><%=rs.getString("p_description")%>
-				<p><%=rs.getInt("p_unitprice")%>원 
+				<p><%=rs.getString("p_unitprice")%>원 
 				<%--p,173 [ 상품 상세정보 버튼 ]만들기 부분
     			&raquo는 [ HTML 특수문자 ] ">>"기호를 만들어 준다. --%>
 				<p>
