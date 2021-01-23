@@ -1,4 +1,7 @@
 <%@ page contentType="text/html; charset=utf-8"%>
+<%--6~7행:
+	- JSP 페이지에 JSTL의 Core 태그, sql태그를 사용하도록 taglib 디렉티브 태그를 작성.
+    --%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql"%>
 
@@ -8,21 +11,25 @@
 <%
 	String sessionId = (String) session.getAttribute("sessionId");
 %>
-<sql:setDataSource var="dataSource"
-	url="jdbc:mysql://localhost:3306/WebMarketDB"
-	driver="com.mysql.jdbc.Driver" user="root" password="1234" />
+	 <%-- p,582 < Sql 태그종류 설명> 
+	 - 23행 : DataSource를 설정하는데 사용. -> 
+	 - [ 데이터베이스를 ** 연결 **하기 위한 ] 기본 설정을 함
+	 --%>
+	<sql:setDataSource var="dataSource" 
+	       url="jdbc:oracle:thin:@localhost:1521:xe" 
+	       driver="oracle.jdbc.driver.OracleDriver" user="jisung" password="db2019"/>
+	<%-- resultSet변수에 저장.
+	     세션에서 가지고있는 id와 [ member 테이블에 id컬럼 값이 같은경우인 ] 행을 조회한다.
+	 --%>
+	<sql:query dataSource="${dataSource}" var="resultSet">
+	   SELECT * FROM MEMBER WHERE ID=?
+	   <sql:param value="<%=sessionId%>" />
+	</sql:query>
 
-<sql:query dataSource="${dataSource}" var="resultSet">
-   SELECT * FROM MEMBER WHERE ID=?
-   <sql:param value="<%=sessionId%>" />
-</sql:query>
-
-
-	
-	<title>회원 수정</title>
+<title>회원 수정</title>
 </head>
 <body onload="init()">
-	<jsp:include page="/menu.jsp" />
+	<jsp:include page="/menu1.jsp" />
 	<div class="jumbotron">
 		<div class="container">
 			<h1 class="display-3">회원 수정</h1>
@@ -40,9 +47,8 @@
 	<c:set var="day" value="${birth.split('/')[2]}" />
 	
 	<div class="container">
-		<form name="newMember" class="form-horizontal"
-			action="processUpdateMember.jsp" method="post"
-			onsubmit="return checkForm()">
+		<form name="newMember" class="form-horizontal" action="processUpdateMember.jsp" 
+		      method="post" onsubmit="return checkForm()">
 			<div class="form-group  row">
 				<label class="col-sm-2 ">아이디</label>
 				<div class="col-sm-3">
@@ -76,7 +82,7 @@
 				<div class="col-sm-10">
 					<c:set var="gender" value="${row.gender }" />
 					<input name="gender" type="radio" value="남"	<c:if test="${gender.equals('남')}"> <c:out value="checked" /> </c:if> >남 
-						<input name="gender" type="radio" value="여"	<c:if test="${gender.equals('여')}"> <c:out value="checked" /> </c:if> >여
+					<input name="gender" type="radio" value="여"	<c:if test="${gender.equals('여')}"> <c:out value="checked" /> </c:if> >여
 				</div>
 			</div>
 			<div class="form-group row">

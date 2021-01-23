@@ -1,5 +1,4 @@
 <%@ page contentType="text/html; charset=utf-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html>
 <head>
 <link rel="stylesheet" href="../resources/css/bootstrap.min.css" />
@@ -19,20 +18,26 @@
 			alert("비밀번호를 동일하게 입력하세요.");
 			return false;
 		}
+		else
+			document.newMember.submit(); // 폼 페이지에 입력된 데이터 값을 서버로 전송.
 	}
 </script>
 <title>회원 가입</title>
 </head>
 <body>
-	<jsp:include page="/menu.jsp" />
+	<jsp:include page="/menu1.jsp" />
 	<div class="jumbotron">
 		<div class="container">
 			<h1 class="display-3">회원 가입</h1>
 		</div>
 	</div>
-
 	<div class="container">
-		<form name="newMember" class="form-horizontal"  action="processAddMember.jsp" method="post" onsubmit="return checkForm()">
+	<%-- < submit버튼 >을 누르면 onsubmit이 실행되어
+	      checkForm()함수가 실행되고  
+	      checkForm()함수의 [ return 값이 true일 경우 ]에만 폼을 전송
+	      --%>
+		<form name="newMember" class="form-horizontal"  action="processAddMember.jsp" 
+		      method="post" onsubmit="return checkForm()">
 			<div class="form-group  row">
 				<label class="col-sm-2 ">아이디</label>
 				<div class="col-sm-3">
@@ -82,9 +87,11 @@
 						<option value="10">10</option>
 						<option value="11">11</option>
 						<option value="12">12</option>
-					</select> <input type="text" name="birthdd" maxlength="2" placeholder="일" size="4">
+					</select>
+					 <input type="text" name="birthdd" maxlength="2" placeholder="일" size="4">
 				</div>
 			</div>
+			
 			<div class="form-group  row ">
 				<label class="col-sm-2">이메일</label>
 				<div class="col-sm-10">
@@ -97,20 +104,21 @@
 					</select>
 				</div>				
 			</div>
+			
 			<div class="form-group  row">
 				<label class="col-sm-2">전화번호</label>
 				<div class="col-sm-3">
 					<input name="phone" type="text" class="form-control" placeholder="phone" >
-
 				</div>
 			</div>
+			
 			<div class="form-group  row">
 				<label class="col-sm-2 ">주소</label>
 				<div class="col-sm-5">
 					<input name="address" type="text" class="form-control" placeholder="address">
-
 				</div>
 			</div>
+			
 			<div class="form-group  row">
 				<div class="col-sm-offset-2 col-sm-10 ">
 					<input type="submit" class="btn btn-primary " value="등록 " > 

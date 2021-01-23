@@ -1,5 +1,8 @@
 <%@ page contentType="text/html; charset=utf-8"%>
-<%@ page import="java.util.*"%>
+<%@ page import="java.util.*"%> <%-- Date 객체를 사용하기위해 작성 --%>
+<%--6~7행:
+	- JSP 페이지에 JSTL의 Core 태그, sql태그를 사용하도록 taglib 디렉티브 태그를 작성.
+    --%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql"%>
 
@@ -25,23 +28,30 @@
 	java.sql.Timestamp timestamp = new java.sql.Timestamp(currentDatetime.getTime());
 %>
 
-<sql:setDataSource var="dataSource"
-	url="jdbc:mysql://localhost:3306/WebMarketDB"
-	driver="com.mysql.jdbc.Driver" user="root" password="1234" />
+	<%-- p,582 < Sql 태그종류 설명> 
+	 - 23행 : DataSource를 설정하는데 사용. -> 
+	 - [ 데이터베이스를 ** 연결 **하기 위한 ] 기본 설정을 함
+	 --%>
+	<sql:setDataSource var="dataSource" 
+	       url="jdbc:oracle:thin:@localhost:1521:xe" 
+	       driver="oracle.jdbc.driver.OracleDriver" user="jisung" password="db2019"/>
+	       
+	 <%-- resultSet 변수에 member 테이블에 id와 같을경우 --> 데이터를 변경한다. --%>
+	<sql:update dataSource="${dataSource}" var="resultSet">
+	   UPDATE MEMBER 
+	   SET PASSWORD=?, NAME=?, GENDER=?, BIRTH=?, MAIL=?, PHONE=?, ADDRESS=? 
+	   WHERE ID = ?
+		<sql:param value="<%=password%>" />
+		<sql:param value="<%=name%>" />
+		<sql:param value="<%=gender%>" />
+		<sql:param value="<%=birth%>" />
+		<sql:param value="<%=mail%>" />
+		<sql:param value="<%=phone%>" />
+		<sql:param value="<%=address%>" />
+		<sql:param value="<%=id%>" />
+	</sql:update>
 
-<sql:update dataSource="${dataSource}" var="resultSet">
-   UPDATE MEMBER SET PASSWORD=?, NAME=?, GENDER=?, BIRTH=?, MAIL=?, PHONE=?, ADDRESS=? WHERE ID=?
-	<sql:param value="<%=password%>" />
-	<sql:param value="<%=name%>" />
-	<sql:param value="<%=gender%>" />
-	<sql:param value="<%=birth%>" />
-	<sql:param value="<%=mail%>" />
-	<sql:param value="<%=phone%>" />
-	<sql:param value="<%=address%>" />
-	<sql:param value="<%=id%>" />
-</sql:update>
-
-<c:if test="${resultSet>=1}">
-	<c:redirect url="resultMember.jsp?msg=0" />
-</c:if>
+	<c:if test="${resultSet>=1}"> <%-- [ 수정한 데이터가 ] 1개 이상인 경우. --%>
+		<c:redirect url="resultMember.jsp?msg=0" /> <%-- 설정한 경로로 이동한다. msg의 값을 0로 설정해서. --%>
+	</c:if>
 
