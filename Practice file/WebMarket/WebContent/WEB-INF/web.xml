@@ -9,4 +9,15 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
+	
+	
+	<servlet>
+		<servlet-name>BoardController</servlet-name>
+		<servlet-class>mvc.controller.BoardController</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>BoardController</servlet-name>
+		<url-pattern>*.do</url-pattern>
+	</servlet-mapping>
 </web-app>
