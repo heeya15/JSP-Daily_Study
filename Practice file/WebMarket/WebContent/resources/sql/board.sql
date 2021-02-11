@@ -9,11 +9,11 @@ CREATE TABLE board (
        subject varchar(100) not null,   -- 게시글 [제목]
        content CLOB not null,           -- 게시글 내용
        regist_day varchar(30),          -- 게시글 등록 일자
-       hit INTEGER,                         -- 게시글 조회 수
-       ip varchar(20),                  -- 게시글 등록 시 IP
+       hit INTEGER,                     -- 게시글 조회 수
+       available NUMBER(1),             -- 게시글 삭제 여부(1인경우 삭제되지 않은것 0이면 삭제된것.)
        PRIMARY KEY (num)                -- 게시글 순번을 고유 키로 설정.
 );
 
-select * from board;
+select * from board order by num ;
 desc board;
-drop table board;
+drop table board purge;

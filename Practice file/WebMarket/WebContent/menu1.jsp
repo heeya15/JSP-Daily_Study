@@ -52,7 +52,7 @@
 					<a class = "nav-link" href="../editProduct.jsp?edit=delete">상품 삭제</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="<c:url value="../BoardListAction.do?pageNum=1"/>">게시판</a>
+					<a class="nav-link" href="<c:url value="../board/list.jsp"/>">게시판</a>
 				</li>
 			</ul>
 		</div>	

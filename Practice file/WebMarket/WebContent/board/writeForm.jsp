@@ -29,13 +29,13 @@
 	<jsp:include page="../menu1.jsp" />
 	<div class="jumbotron">
 		<div class="container">
-			<h1 class="display-3">게시판</h1>
+			<h1 class="display-3">게시판 글쓰기</h1>
 		</div>
 	</div>
 
 	<div class="container">
 
-		<form name="newWrite" action="./BoardWriteAction.do"
+		<form name="newWrite" action="./writeAction.jsp"
 			class="form-horizontal" method="post" onsubmit="return checkForm()">
 			<input name="id" type="hidden" class="form-control"
 				value="${sessionId}">
@@ -64,7 +64,7 @@
 			<div class="form-group row">
 				<div class="col-sm-offset-2 col-sm-10 ">
 				 <input type="submit" class="btn btn-primary " value="등록 ">				
-					 <input type="reset" class="btn btn-primary " value="취소 ">
+				 <input type="reset" class="btn btn-primary " value="취소 ">
 				</div>
 			</div>
 		</form>

@@ -28,6 +28,7 @@
 						   <a class="nav-link" href="<c:url value="/member/addMember.jsp"/>">회원 가입</a>
 						</li>
 					</c:when>
+					
 					<c:otherwise> <%--세션 id가 비어있지 않는경우(속성 값이 있으면) --%>
 						<li style="padding-top: 7px; color: white">[<%=sessionId%>님]</li>
 						<li class="nav-item">
@@ -52,7 +53,7 @@
 					<a class = "nav-link" href="./editProduct.jsp?edit=delete">상품 삭제</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="<c:url value="./BoardListAction.do?pageNum=1"/>">게시판</a>
+					<a class="nav-link" href="<c:url value="./board/list.jsp"/>">게시판</a>
 				</li>
 			</ul>
 		</div>	
