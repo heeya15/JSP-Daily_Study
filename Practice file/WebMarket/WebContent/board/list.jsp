@@ -38,7 +38,8 @@
 			<h1 class="display-3">게시판</h1>
 		</div>
 	</div>
-		<div class="container">
+	
+	<div class="container">
 		<div class="row">
 		<!-- table table-striped은 홀수와 짝수를 번갈아가면서 
 		색상이 변경되도록 해서 보다 더 보기좋은 테이블이 나오게 해주는 요소입니다. -->
@@ -63,7 +64,9 @@
 						<td><%= list.get(i).getNum() %></td>
 						<!-- 게시글 제목을 누르면 해당 글을 볼 수 있도록 링크를 걸어둔다 -->
 						<td><a href="view.jsp?bbsID=<%= list.get(i).getNum() %>">
-							<%= list.get(i).getSubject() %></a></td>
+							<%= list.get(i).getSubject().replaceAll(" ", "&nbsp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\n", "<br>") %>
+							</a>
+						</td>
 						<td><%= list.get(i).getName() %> ( <%=list.get(i).getId() %> ) </td>
 						<td><%= list.get(i).getRegist_day().substring(0, 11) + 
 						        list.get(i).getRegist_day().substring(11, 13) + "시"
@@ -97,7 +100,7 @@
 				<%
 					}
 				%>
-			       <td align="right"><a href="writeForm.jsp"  class ="btn btn-primary pull-right">글쓰기</a></td>
+			       <td align="right"><a href="writeForm.jsp" class ="btn btn-primary pull-right">글쓰기</a></td>
 			</tr>
 		</table>
 		

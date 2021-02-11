@@ -170,5 +170,73 @@ public class BoardDAO {
 			}
 			return false; // 그렇지 않으면 false 반환.
 		}
-			
+		
+		/*
+		  동빈나 유튜브 게시판 만들기 강좌 12강 참고
+		  [ 하나의 글 내용을 불러오는 함수 ]를 추가
+		*/
+		public BoardDTO getBoardDTO(int bbsID) {
+			//해당되는 게시글 번호에 대한 게시글 정보를 가져오는 쿼리문.
+			String SQL = "select * from board where num = ?";
+			         
+			try {
+				//sql 문장을 실행 준비단계로 해준다.
+				PreparedStatement pstmt = conn.prepareStatement(SQL);
+				pstmt.setInt(1, bbsID);
+				rs = pstmt.executeQuery();
+				// 결과가 하나라도 존재한다면 다음페이지로 넘어갈수 있다는것을 알려준다.
+				if (rs.next()) {
+					BoardDTO bbs = new BoardDTO();
+					bbs.setNum(rs.getInt(1));
+					bbs.setId(rs.getString(2));
+					bbs.setName(rs.getString(3));
+					bbs.setSubject(rs.getString(4));
+					bbs.setContent(rs.getString(5));
+					bbs.setRegist_day(rs.getString(6));
+					bbs.setHit(rs.getInt(7));
+					bbs.setAvailable(rs.getInt(8));
+					return bbs;
+				}
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+			return null; // 해당 글이 존재하지 않는다면 null을 반환
+		}
+		
+		/* ---------------------------------------------------
+		  동빈나 유튜브 게시판 만들기 강좌 13강 참고
+		  [ 실제로 글 수정 삭제 기능을 하도록 하겠다. ]
+		*/
+		
+		// 게시글 [ 수정버튼을 눌려 ]질때 수정된 내용을 수정하게끔 하는 함수
+		public int update(int bbsID, String bbsTitle, String bbsContent) {
+			//해당되는 게시글 번호에 대한 게시글 정보를 가져오는 쿼리문.
+			String SQL = "UPDATE board SET subject = ?, content = ?  where num = ?";
+			         
+			try {
+				//sql 문장을 실행 준비단계로 해준다.
+				PreparedStatement pstmt = conn.prepareStatement(SQL);
+				pstmt.setString(1, bbsTitle);
+				pstmt.setString(2, bbsContent);
+				pstmt.setInt(3, bbsID);
+				return pstmt.executeUpdate();
+			}catch (Exception e) {
+				e.printStackTrace();
+			}
+			return -1; //데이터베이스 오류
+		}
+		
+		//게시글 [ 삭제 ] 메소드
+		public int delete(int bbsID) {
+			//[ 실제 데이터를 삭제하는 것이 아니라 ] 게시글 유효숫자를 '0'으로 수정한다
+			String sql = "UPDATE board SET available = 0 where num = ?";
+			try {
+				PreparedStatement pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, bbsID);
+				return pstmt.executeUpdate();
+			}catch (Exception e) {
+				e.printStackTrace();
+			}
+			return -1; //데이터베이스 오류 
+		}
 }

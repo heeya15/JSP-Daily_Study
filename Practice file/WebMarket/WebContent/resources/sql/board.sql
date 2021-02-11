@@ -17,3 +17,7 @@ CREATE TABLE board (
 select * from board order by num ;
 desc board;
 drop table board purge;
+
+UPDATE board SET subject = '제발', content = 'hiㅋ'  where num = 19;
+--아래는 삭제하기
+UPDATE board SET available = 0 where num = ?;
