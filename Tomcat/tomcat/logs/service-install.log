@@ -1,6 +1,0 @@
-"C:\JSP폴더\tomcat\bin\Tomcat8.exe" //IS//Tomcat8 --DisplayName "Apache Tomcat 8.5 Tomcat8" --Description "Apache Tomcat 8.5.60 Server - https://tomcat.apache.org/" --LogPath "C:\JSP폴더\tomcat\logs" --Install "C:\JSP폴더\tomcat\bin\Tomcat8.exe" --Jvm "C:\Program Files\Java\jre1.8.0_271\bin\server\jvm.dll" --StartPath "C:\JSP폴더\tomcat" --StopPath "C:\JSP폴더\tomcat"
-"C:\JSP폴더\tomcat\bin\Tomcat8.exe" //US//Tomcat8 --Startup auto
-"C:\JSP폴더\tomcat\bin\Tomcat8.exe" //US//Tomcat8 --Classpath "C:\JSP폴더\tomcat\bin\bootstrap.jar;C:\JSP폴더\tomcat\bin\tomcat-juli.jar" --StartClass org.apache.catalina.startup.Bootstrap --StopClass org.apache.catalina.startup.Bootstrap --StartParams start --StopParams stop  --StartMode jvm --StopMode jvm
-"C:\JSP폴더\tomcat\bin\Tomcat8.exe" //US//Tomcat8 --JvmOptions "-Dcatalina.home=C:\JSP폴더\tomcat#-Dcatalina.base=C:\JSP폴더\tomcat#-Djava.io.tmpdir=C:\JSP폴더\tomcat\temp#-Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager#-Djava.util.logging.config.file=C:\JSP폴더\tomcat\conf\logging.properties"
-"C:\JSP폴더\tomcat\bin\Tomcat8.exe" //US//Tomcat8 --JvmOptions9 "--add-opens=java.base/java.lang=ALL-UNNAMED#--add-opens=java.base/java.io=ALL-UNNAMED#--add-opens=java.rmi/sun.rmi.transport=ALL-UNNAMED"
-"C:\JSP폴더\tomcat\bin\Tomcat8.exe" //US//Tomcat8 --StdOutput auto --StdError auto --JvmMs 128 --JvmMx 256
