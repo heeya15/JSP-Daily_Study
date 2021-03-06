@@ -20,17 +20,18 @@
   xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
                       http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
   version="3.1"
-  metadata-complete="true">
+  metadata-complete="false"> <!-- 어노테이션으로 설정한 내용을 읽어들이기 위해 'false'로 설정.  -->
 
-  <servlet>
+<!-- xml 파일 주석처리 단축키,  Ctrl + Shift + /  => 주석 처리 -->
+  <!-- <servlet>
  	<servlet-name>na</servlet-name>
- 	<servlet-class>com.newlecture.web.Nana</servlet-class>  <!--실행할 서블릿 코드 -->
+ 	<servlet-class>com.newlecture.web.Nana</servlet-class>  실행할 서블릿 코드
   </servlet>
 
   <servlet-mapping>
  	<servlet-name>na</servlet-name>
- 	<url-pattern>/hello</url-pattern> <!-- 사용자에게 제공하는 url이다.  -->
-  </servlet-mapping>
+ 	<url-pattern>/hello</url-pattern> 사용자에게 제공하는 url이다. 
+  </servlet-mapping> -->
   
   <display-name>Welcome to Tomcat</display-name>
   <description>
