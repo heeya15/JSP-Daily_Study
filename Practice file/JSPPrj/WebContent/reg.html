@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<div>
+		<!-- action속성에 [ 서블릿 매핑 주소를 쓴다. ] -->
+		<!--사용자의 입력을 처리하기 위한 form 태그 
+		    notice-reg에 해당하는 서블릿이 있어야 한다. form 안에 있는 값을 전달 받아서 처리하는 서블릿!-->
+		<form action="notice-reg" method="post">
+			<div>
+				<label>제목:</label><input name="title" type="text" />
+			</div>
+			<div>
+				<label>내용:</label>
+				<textarea name="content"></textarea>
+			</div>
+			<div>
+				<input type="submit" value="등록" /><!--요청을 담당. -->
+			</div>
+		</form>
+	</div>
+</body>
+</html>
