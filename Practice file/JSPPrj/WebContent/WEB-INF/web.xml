@@ -34,14 +34,14 @@
   </servlet-mapping> -->
   
   <!-- 서블릿과 방법이 굉장히 비슷하다. -->
- 	<filter>
+ 	<!-- <filter>
  		<filter-name>characterEncodingFilter</filter-name>
  		<filter-class>com.newlecture.web.filter.CharacterEncodingFilter</filter-class>
  	</filter>
 	<filter-mapping>
 		<filter-name>characterEncodingFilter</filter-name>
-		<url-pattern>/*</url-pattern> <!-- 모든 URL에 대해서 무조건 동작하게 하겠다. -->
-	</filter-mapping>
+		<url-pattern>/*</url-pattern> 모든 URL에 대해서 무조건 동작하게 하겠다.
+	</filter-mapping> -->
 	
   <display-name>Welcome to Tomcat</display-name>
   <description>
