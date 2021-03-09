@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<!-- 중요한 것은 사용자가 입력을 해서 전달할때 method를 post로 했다라는 것, 
+	     서블릿 매핑은 add로 했다 라는 것. -->
+	<form action="add2" method="post"> 
+		<div>
+			<label> x : </label>
+			<input type="text" name="num" />  <!-- 전달할때 키 값으로 x,y로 했다. -->
+			<input type="text" name="num" />
+			<input type="text" name="num" />
+			<input type="text" name="num" />
+		</div>
+		<div>
+			<input type="submit" value="덧셈(계산)" />
+		</div>
+		<div>
+			결과 : 0
+		</div>
+	</form>
+</body>
+</html>
