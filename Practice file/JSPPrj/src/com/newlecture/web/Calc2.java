@@ -64,8 +64,11 @@ public class Calc2 extends HttpServlet {
 		else {	
 			//application.setAttribute("value", v);
 			//application.setAttribute("operator", op); // 29~30번 줄의 값을 저장한 것이다.
+			
 			session.setAttribute("value", v);
 			session.setAttribute("operator", op); 
+			
+
 		}
 				
 	}

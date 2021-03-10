@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<!-- 중요한 것은 사용자가 입력을 해서 전달할때 method를 post로 했다라는 것, 
+	     서블릿 매핑은 add로 했다 라는 것. -->
+	<form action="calc3" method="post"> 
+		<div>
+			<label> 입력 : </label>
+			<input type="text" name="v" />  <!-- 전달할때 키 값으로 v 전달 했다. -->
+		</div>
+		<div> <!-- 위에 input과 달리, 아래 버튼은 [ 선택된 버튼만 ] 전달이 된다. -->
+			<input type="submit" name = "operator" value="+" />
+			<input type="submit" name = "operator" value="-" />
+			<input type="submit" name = "operator" value="=" />
+		</div>
+		<div>
+			결과 : 0
+		</div>
+	</form>
+</body>
+</html>
