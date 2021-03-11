@@ -83,6 +83,8 @@ public class Calc3 extends HttpServlet {
 			Cookie operatorcookie = new Cookie("operator", op);
 			//쿠키가 [ 어느 경우에 사용자로부터 전달되어야 하는지 ]의 경로이다.
 			valuecookie.setPath("/calc3"); //루트(/)로 지정할 경우 모든 페이지를 요청할 때마다 [ valuecookie를 가져오라는 것이다. ] 
+			valuecookie.setMaxAge(24*60*60);
+			
 			operatorcookie.setPath("/calc3"); //어떠한 서비스를 요청하든 (value값과 operator)는 무조건 전달된다. 
 			//클라이언트에게 보내기 위해서 addCookie() 메소드 사용. response 헤더에 심어지는 그러한 형태로 전달.
 			response.addCookie(valuecookie);
