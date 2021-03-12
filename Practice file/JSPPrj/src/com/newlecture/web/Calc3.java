@@ -89,6 +89,8 @@ public class Calc3 extends HttpServlet {
 			//클라이언트에게 보내기 위해서 addCookie() 메소드 사용. response 헤더에 심어지는 그러한 형태로 전달.
 			response.addCookie(valuecookie);
 			response.addCookie(operatorcookie);
+			
+			response.sendRedirect("calc3.html");// redirect 사용 [ 경로 우회 ]
 		}
 				
 	}
