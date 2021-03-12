@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
+import javax.script.ScriptException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.Cookie;
@@ -43,6 +44,12 @@ public class Calc4 extends HttpServlet {
 		// null이 아니고, [ "="이퀄 인경우 ] [ 계산을 ] 수행한다.
 		if(operator != null && operator.equals("=")) {
 			ScriptEngine engine = new ScriptEngineManager().getEngineByName("nashorn");
+			try {
+				exp = String.valueOf(engine.eval(exp));
+			} catch (ScriptException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		else {// 그렇지 않은 경우만 한다. 
 			//만약에 숫자 버튼을 누르면 value 빼고 operator, dot은 null이다.
