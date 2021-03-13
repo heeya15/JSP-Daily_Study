@@ -35,7 +35,7 @@ public class Calc4 extends HttpServlet {
 		if (cookies != null) { //읽어온 쿠키가 [ null이 아니면 ]
 			 // 쿠키에 저장되는게 연산식이기 때문에 [ 연산식 자체를 그대로 들고와주고 ] 출력하도록 함.
 		    for(Cookie c : cookies) { // 찾는 작업이 여러번 이닌깐 for문을 돌려야함
-		    	if(c.getName().equals("exp")) { //쿠키 이름중 내가 설정한 쿠키 이름과 같으면
+		    	if(c.getName().equals("exp")) { //쿠키 이름중 내가 설정한 쿠키 이름(exp)과 같으면
 		    		exp = c.getValue(); // ** [ 쿠키에서 읽은 값으로 ] ** 바뀐다.
 					break; //찾았스면 더이상 검색하지 말라! 그래서 for문을 나와준다. 
 		    	}
@@ -51,6 +51,11 @@ public class Calc4 extends HttpServlet {
 				e.printStackTrace();
 			}
 		}
+		//쿠키 삭제
+		else if(operator != null && operator.equals("C")) {
+			 exp = ""; //쿠키를 사용하는 값을 빈 문자열로 만든다. 
+		
+		}
 		else {// 그렇지 않은 경우만 한다. 
 			//만약에 숫자 버튼을 누르면 value 빼고 operator, dot은 null이다.
 			// [ value가 null이면 ] < 빈 문자열 >, value가 null이 [ 아니면 ] [ 값을 exp에 누적. ]
@@ -62,6 +67,9 @@ public class Calc4 extends HttpServlet {
 		
 		
 		Cookie expCookie = new Cookie("exp",exp);
+	    if(operator != null && operator.equals("C")) {
+			expCookie.setMaxAge(0);
+		}
 		response.addCookie(expCookie);
 		response.sendRedirect("/calcpage");
 	}
