@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,15 +20,20 @@ input {
 	padding: 0px, 5px;
 }
 </style>
+<%
+	int x = 3;
+	int y = 4;
+%>
 </head>
 <body>
-	<!-- 중요한 것은 사용자가 입력을 해서 전달할때 method를 post로 했다라는 것  -->
+
+	<%-- 중요한 것은 사용자가 입력을 해서 전달할때 method를 post로 했다라는 것  --%>
 	<form action="calc4" method="post"> 
 		<table>
 		<!-- 맨 위에 값을 띄우는 행의 열은 하나만 있으면 된다. 
 		colspan=4 로 한 이유는 다른아이들은 '4열'로 구성되있으니, 똑같이 4열을 쓰겠다 라는 뜻.-->
 			<tr> 
-				<td class="output" colspan="4">3+4</td>
+				<td class="output" colspan="4">${3+4}</td>
 			</tr>
 			
 			<tr> <!-- '한개의 행'에 4개의 열이 있다. -->
