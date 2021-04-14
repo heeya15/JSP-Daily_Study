@@ -28,7 +28,7 @@ public class Spag extends HttpServlet {
 		else
 			result = "짝수";
 		
-		request.setAttribute("result", result); //모델데이터를 
+		request.setAttribute("result", result); //모델데이터를 심어놨다.
 		RequestDispatcher dispatcher = 
 				request.getRequestDispatcher("spag.jsp"); // spag.jsp는 서블릿이다.
 		/* dispatcher를 통해 forward 가능.

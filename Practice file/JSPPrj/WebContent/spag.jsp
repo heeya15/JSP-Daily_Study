@@ -10,5 +10,6 @@
 <body>
 	<%-- 출력 담당 View --%>
 	<%=request.getAttribute("result") %>입니다.	
+	${result} <%--키 값을 괄호안에 넣고, 앞에 달러 표시를 해 주면, 이게 EL이라는 녀석의 표기법이다. --%>
 </body>
 </html>
