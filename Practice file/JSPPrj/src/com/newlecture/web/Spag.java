@@ -1,6 +1,8 @@
 package com.newlecture.web;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -29,6 +31,18 @@ public class Spag extends HttpServlet {
 			result = "짝수";
 		
 		request.setAttribute("result", result); //모델데이터를 심어놨다.
+		
+		// 배열 등 사용 시		
+		String[] names = {"newlec", "dragon"};
+		request.setAttribute("names", names); //request 저장소에 담았다.
+		
+		// Map<키, 값> 사용 시
+		// 키: 문자열, 값: 오브젝트형으로 아무거나 담을수 있게 한다.
+		Map<String, Object> notice = new HashMap<String, Object>();//공지사항을 나타내는 데이터.
+		notice.put("id", 1);
+		notice.put("title", "EL은 좋아요.");
+		request.setAttribute("notice", notice);
+		
 		RequestDispatcher dispatcher = 
 				request.getRequestDispatcher("spag.jsp"); // spag.jsp는 서블릿이다.
 		/* dispatcher를 통해 forward 가능.
