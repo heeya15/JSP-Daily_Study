@@ -42,7 +42,7 @@ public class Spag extends HttpServlet {
 		notice.put("id", 1);
 		notice.put("title", "EL은 좋아요.");
 		request.setAttribute("notice", notice);
-		
+		// 요청을 담아서 넘긴다.
 		RequestDispatcher dispatcher = 
 				request.getRequestDispatcher("spag.jsp"); // spag.jsp는 서블릿이다.
 		/* dispatcher를 통해 forward 가능.
