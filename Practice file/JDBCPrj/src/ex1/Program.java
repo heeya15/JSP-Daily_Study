@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Date;
 
 public class Program {
 
@@ -15,7 +16,7 @@ public class Program {
 		String url = "jdbc:oracle:thin:@localhost:1521/xepdb1";// 사용하려는 데이터베이스명을 포함한 URL 기술
 		String id = "NEWLEC"; // 사용자 계정
 	    String pw = "oradb"; // 사용자 계정의 패스워드
-		String sql = "SELECT * FROM NOTICE";				
+		String sql = "SELECT * FROM NOTICE WHERE HIT >10";				
 		/* 25행 드라이버 로딩 P, 517
 		 - JDBC 드라이버 로딩되면 [ 자동으로 객체가 생성 ]되고
 		 - [ 데이터베이스와 연동하기 위해 ] [ DriverManager 클래스에 등록 ]된다.
@@ -31,10 +32,17 @@ public class Program {
 		ResultSet rs = st.executeQuery(sql);
 		//위에서는 데이터베이스 연결 과정이 끝났다
 		
-		if(rs.next()) { // 테이블에서 가져온게 있으면, true여서 아래코드 수행.
+		while (rs.next()) { // 테이블에서 가져온게 있으면, true여서 아래코드 수행.
+			int id1 = rs.getInt("ID");
 			String title = rs.getString("TITLE"); // TITLE 컬럼에 값을 가져와서
-			System.out.println(title);
-		} // 한줄 씩 가져오는 것. 
+			String writer_id = rs.getString("WRITER_ID");
+			String content = rs.getString("CONTENT");
+			Date regdate = rs.getDate("REGDATE");
+			int hit = rs.getInt("HIT");	
+			System.out.printf("id1:%d, title:%s, writer_id : %s, content : %s, regdate: %s, hit: %d \n",
+					id1, title, writer_id, content, regdate, hit);	
+			
+		} 
 		
 		rs.close();
 		st.close();
