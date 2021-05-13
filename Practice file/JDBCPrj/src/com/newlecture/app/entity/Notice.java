@@ -11,18 +11,29 @@ public class Notice {
 	private String content ;
 	private Date regdate;
 	private int hit ;
+	private String files;
+	public String getFiles() {
+		return files;
+	}
+
+	public void setFiles(String files) {
+		this.files = files;
+	}
+
 	public Notice() {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public Notice(int id1, String title, String writer_id, String content, Date regdate, int hit) {
-		
+	public Notice(int id1, String title, String writer_id, String content,
+			      Date regdate, int hit, String files)
+	{	
 		this.id1 = id1;
 		this.title = title;
 		this.writer_id = writer_id;
 		this.content = content;
 		this.regdate = regdate;
 		this.hit = hit;
+		this.files = files;
 	}
 
 	public int getId1() {
