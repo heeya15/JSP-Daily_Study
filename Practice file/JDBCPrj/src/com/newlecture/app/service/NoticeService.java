@@ -17,14 +17,19 @@ public class NoticeService {
 	private String uid = "NEWLEC"; // 사용자 계정
 	private String pwd = "oradb"; // 사용자 계정의 패스워드
 	private String driver = "oracle.jdbc.driver.OracleDriver";
-	public List<Notice> getList() throws ClassNotFoundException, SQLException {
+	public List<Notice> getList(int page) throws ClassNotFoundException, SQLException {
 		
-		String sql = "SELECT * FROM NOTICE";
+		int start = 1 + ( page-1 ) * 10;   // 1, 11 , 21 , 31 -- 규칙있는 수의 나열이니 [ 수열 ]
+		int end = 10*page; // 1페이지면 10,2페이지면 20 ... 이런식으로 간다.
+		String sql = "SELECT * FROM NOTICE_VIEW WHERE NUM BETWEEN ? AND ?";
+		
 
 		Class.forName(driver);
 		Connection con = DriverManager.getConnection(url, uid, pwd);
-		Statement st = con.createStatement();
-		ResultSet rs = st.executeQuery(sql);
+		PreparedStatement st = con.prepareStatement(sql);
+		st.setInt(1, start);
+		st.setInt(2, end);
+		ResultSet rs = st.executeQuery();
 
 		List<Notice> list = new ArrayList<Notice>();
 
@@ -46,7 +51,25 @@ public class NoticeService {
 		con.close();
 		return list;
 	}
+	// [ 단일값을 얻어온다는 것 ]을 말할때 흔히 [ Scalar 값을얻어 온다고 ] 말한다.
+	public int getCount() throws ClassNotFoundException, SQLException { //총게시글 개수를 얻어내기 위해 select 구문이 필요
+		int count = 0; // 반환하는 변수
+		String sql = "SELECT COUNT(ID) AS COUNT FROM NOTICE";
+		
+		Class.forName(driver);
+		Connection con = DriverManager.getConnection(url, uid, pwd);
+		Statement st = con.createStatement();
+		
+		ResultSet rs = st.executeQuery(sql);
 
+		if (rs.next()) //결과집합을 가져온게 있으면 총 게시글 수를 count 변수에 담아 반환해 준다.
+			count = rs.getInt("COUNT");
+		
+		rs.close();
+		st.close();
+		con.close();
+		return count;
+	}
 	public int insert(Notice notice) throws SQLException, ClassNotFoundException {
 		String title = notice.getTitle();
 		String writerId = notice.getWriter_id();
@@ -130,4 +153,6 @@ public class NoticeService {
 		con.close();
 		return result;
 	}
+
+	
 }

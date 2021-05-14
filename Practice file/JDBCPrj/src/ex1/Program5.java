@@ -9,8 +9,9 @@ public class Program5 {
 	public static void main(String[] args) throws ClassNotFoundException, SQLException {
 		// notice를 관리하는 콘솔 하나 생성
 		NoticeConsole console = new NoticeConsole();
-		//제어구조 앞에 EXIT라는 라벨을 붙이면 [ 아래에서 라벨을 써서 break; ]하게되면은
-		//while 문까지 한번에 벗어난다.
+		//int page ; // 페이지를 저장하기위한 상태변수
+		
+		//제어구조 앞에 EXIT라는 라벨을 붙이면 [ 아래에서 라벨을 써서 break; ]하게되면은 while 문까지 한번에 벗어난다.
 		EXIT:
 			while(true) {  
 			console.printNoticeList(); // 콘솔을 통해서 공지사항 목록을 출력해달라고 할 것이다.
@@ -20,8 +21,12 @@ public class Program5 {
 			case 1: //상세조회
 				break;
 			case 2: //이전
+				console.movePrevList();
+				//page--;
 				break;
 			case 3: //다음
+				console.moveNextList();
+				//page++;
 				break;
 			case 4: //글쓰기
 				break;
