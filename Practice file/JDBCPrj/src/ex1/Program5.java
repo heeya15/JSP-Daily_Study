@@ -30,7 +30,10 @@ public class Program5 {
 				break;
 			case 4: //글쓰기
 				break;
-			case 5: //종료
+			case 5: //검색
+				console.inputSearchWord();
+				break;
+			case 6: //종료
 				System.out.println("bye~~~~~~");
 				break EXIT;	 // 해당 라벨로 이동하여 while 문 까지 벗어난다.
 			default:

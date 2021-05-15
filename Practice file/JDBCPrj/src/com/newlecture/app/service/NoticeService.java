@@ -17,18 +17,19 @@ public class NoticeService {
 	private String uid = "NEWLEC"; // 사용자 계정
 	private String pwd = "oradb"; // 사용자 계정의 패스워드
 	private String driver = "oracle.jdbc.driver.OracleDriver";
-	public List<Notice> getList(int page) throws ClassNotFoundException, SQLException {
-		
+	public List<Notice> getList(int page, String field, String query) 
+			                   throws ClassNotFoundException, SQLException {
 		int start = 1 + ( page-1 ) * 10;   // 1, 11 , 21 , 31 -- 규칙있는 수의 나열이니 [ 수열 ]
 		int end = 10*page; // 1페이지면 10,2페이지면 20 ... 이런식으로 간다.
-		String sql = "SELECT * FROM NOTICE_VIEW WHERE NUM BETWEEN ? AND ?";
+		String sql = "SELECT * FROM NOTICE_VIEW WHERE "+ field +" LIKE ? AND NUM BETWEEN ? AND ?";
 		
 
 		Class.forName(driver);
 		Connection con = DriverManager.getConnection(url, uid, pwd);
 		PreparedStatement st = con.prepareStatement(sql);
-		st.setInt(1, start);
-		st.setInt(2, end);
+		st.setString(1, "%"+query+"%");
+		st.setInt(2, start);
+		st.setInt(3, end);
 		ResultSet rs = st.executeQuery();
 
 		List<Notice> list = new ArrayList<Notice>();
