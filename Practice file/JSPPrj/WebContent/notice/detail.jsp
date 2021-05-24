@@ -1,19 +1,17 @@
-<%@page import="java.util.Date"%>
+<%@page import="java.sql.PreparedStatement"%>
+<%@page import="java.sql.DriverManager"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.Statement"%>
-<%@page import="java.sql.DriverManager"%>
 <%@page import="java.sql.Connection"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
-<%  // 뉴렉처 52강 인강 실습부분.
-        //오라클 서버에 접속할 정보 정의
-		//앞에 (oracle.jdbc.driver)패키지.(OracleDriver)클래스 사용. -- < 데이터 베이스 연동하기위해 사용 >하는것.
+<%  // 뉴렉처 53강 인강 실습부분.
+	    int id1 = Integer.parseInt(request.getParameter("id"));
 		String driver = "oracle.jdbc.driver.OracleDriver"; 
 		String url = "jdbc:oracle:thin:@localhost:1521/xepdb1";// 사용하려는 데이터베이스명을 포함한 URL 기술
 		String id = "NEWLEC"; // 사용자 계정
 	    String pw = "oradb"; // 사용자 계정의 패스워드
-		String sql = "SELECT * FROM NOTICE ";				
+		String sql = "SELECT * FROM NOTICE WHERE ID = ?";				
 		/* 드라이버 로딩
 		 - JDBC 드라이버 로딩되면 [ 자동으로 객체가 생성 ]되고
 		 - [ 데이터베이스와 연동하기 위해 ] [ DriverManager 클래스에 등록 ]된다.
@@ -24,13 +22,15 @@
 		   - DriverManager 객체로부터 [ 연결된 Connection 객체를 얻어온다. ]
 		*/
 		Connection con = DriverManager.getConnection(url, id, pw); 
-		Statement st = con.createStatement();
-		ResultSet rs = st.executeQuery(sql);
-		//위에서는 데이터베이스 연결 과정이 끝났다하겠다 
-%>
+		PreparedStatement st =con.prepareStatement(sql); //쿼리문을 넘겨받아 미리 준비한다.
+		// 일반적인 인덱스 번호와 달리 1부터 인덱스가 시작된다.
+		st.setInt(1, id1); // 인덱스 번호, 넣어줄 데이터
+		ResultSet rs = st.executeQuery();	//위에 쿼리를 조회한 결과가 서버쪽에 만들어짐.
+		
+		rs.next();//서버 쪽에 만든 결과를 가져오기 위해 [ rs의 next 메소드를 호출 ].
+%>    
 <!DOCTYPE html>
 <html>
-
 <head>
     <title>코딩 전문가를 만들기 위한 온라인 강의 시스템</title>
     <meta charset="UTF-8">
@@ -52,7 +52,7 @@
 <body>
     <!-- header 부분 -->
 
-    <header id="header">
+	<header id="header">
         
         <div class="content-container">
             <!-- ---------------------------<header>--------------------------------------- -->
@@ -156,98 +156,77 @@
 			</aside>
 			<!-- --------------------------- main --------------------------------------- -->
 
+			
 
-		<main class="main">
-			<h2 class="main title">공지사항</h2>
-			
-			<div class="breadcrumb">
-				<h3 class="hidden">경로</h3>
-				<ul>
-					<li>home</li>
-					<li>고객센터</li>
-					<li>공지사항</li>
-				</ul>
-			</div>
-			
-			<div class="search-form margin-top first align-right">
-				<h3 class="hidden">공지사항 검색폼</h3>
-				<form class="table-form">
-					<fieldset>
-						<legend class="hidden">공지사항 검색 필드</legend>
-						<label class="hidden">검색분류</label>
-						<select name="f">
-							<option  value="title">제목</option>
-							<option  value="writerId">작성자</option>
-						</select> 
-						<label class="hidden">검색어</label>
-						<input type="text" name="q" value=""/>
-						<input class="btn btn-search" type="submit" value="검색" />
-					</fieldset>
-				</form>
-			</div>
-			
-			<div class="notice margin-top">
-				<h3 class="hidden">공지사항 목록</h3>
-				<table class="table">
-					<thead>
-						<tr>
-							<th class="w60">번호</th>
-							<th class="expand">제목</th>
-							<th class="w100">작성자</th>
-							<th class="w100">작성일</th>
-							<th class="w60">조회수</th>
-						</tr>
-					</thead>
-					<tbody>
-					<% while (rs.next()) { // 테이블에서 가져온게 있으면, true여서 아래코드 수행.
-						//int id1 = rs.getInt("ID");
-						String title = rs.getString("TITLE"); // TITLE 컬럼에 값을 가져와서
-						String writer_id = rs.getString("WRITER_ID");
-						Date regdate = rs.getDate("REGDATE");
-						int hit = rs.getInt("HIT");					
-					%>		
-					<tr>
-						<td><%=rs.getInt("ID") %></td>
-						<td class="title indent text-align-left"><a href="detail.jsp?id=<%=rs.getInt("ID") %>"><%=title%></a></td>
-						<td><%=writer_id%></td>
-						<td>
-							<%=regdate%>		
-						</td>
-						<td><%=hit%></td>
-					</tr>						
-					<%}%>
-								
-					</tbody>
-				</table>
-			</div>
-			
-			<div class="indexer margin-top align-right">
-				<h3 class="hidden">현재 페이지</h3>
-				<div><span class="text-orange text-strong">1</span> / 1 pages</div>
-			</div>
 
-			<div class="margin-top align-center pager">	
-		
-	<div>
-		
-		
-		<span class="btn btn-prev" onclick="alert('이전 페이지가 없습니다.');">이전</span>
-		
-	</div>
-	<ul class="-list- center">
-		<li><a class="-text- orange bold" href="?p=1&t=&q=" >1</a></li>
+			<main>
+				<h2 class="main title">공지사항</h2>
 				
-	</ul>
-	<div>
-		
-		
-			<span class="btn btn-next" onclick="alert('다음 페이지가 없습니다.');">다음</span>
-		
-	</div>
-	
-			</div>
-		</main>
-		
+				<div class="breadcrumb">
+					<h3 class="hidden">breadlet</h3>
+					<ul>
+						<li>home</li>
+						<li>고객센터</li>
+						<li>공지사항</li>
+					</ul>
+				</div>
+				
+				<div class="margin-top first">
+						<h3 class="hidden">공지사항 내용</h3>
+						<table class="table">
+							<tbody>
+								<tr>
+									<th>제목</th>
+									<td class="text-align-left text-indent text-strong text-orange" colspan="3"><%=rs.getString("TITLE") %></td>
+								</tr>
+								<tr>
+									<th>작성일</th>
+									<td class="text-align-left text-indent" colspan="3"><%=rs.getDate("REGDATE") %>	</td>
+								</tr>
+								<tr>
+									<th>작성자</th>
+									<td><%=rs.getString("WRITER_ID") %></td>
+									<th>조회수</th>
+									<td><%=rs.getInt("HIT") %></td>
+								</tr>
+								<tr>
+									<th>첨부파일</th>
+									<td colspan="3"><%=rs.getString("FILES") %></td>
+								</tr>
+								<tr class="content">
+									<td colspan="4"><%=rs.getString("CONTENT") %></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					
+					<div class="margin-top text-align-center">
+						<a class="btn btn-list" href="list.html">목록</a>
+					</div>
+					
+					<div class="margin-top">
+						<table class="table border-top-default">
+							<tbody>
+								
+								<tr>
+									<th>다음글</th>
+									<td colspan="3"  class="text-align-left text-indent">다음글이 없습니다.</td>
+								</tr>
+								
+									
+								
+								
+								<tr>
+									<th>이전글</th>
+									<td colspan="3"  class="text-align-left text-indent"><a class="text-blue text-strong" href="">스프링 DI 예제 코드</a></td>
+								</tr>
+								
+								
+							</tbody>
+						</table>
+					</div>			
+					
+			</main>		
 			
 		</div>
 	</div>
@@ -287,9 +266,8 @@
             </div>
         </footer>
     </body>
-    
     </html>
-    <%
+     <%
     rs.close();
     st.close();
     con.close();
