@@ -1,3 +1,4 @@
+<%@page import="java.util.Date"%>
 <%@page import="java.sql.PreparedStatement"%>
 <%@page import="java.sql.DriverManager"%>
 <%@page import="java.sql.ResultSet"%>
@@ -12,15 +13,9 @@
 		String id = "NEWLEC"; // 사용자 계정
 	    String pw = "oradb"; // 사용자 계정의 패스워드
 		String sql = "SELECT * FROM NOTICE WHERE ID = ?";				
-		/* 드라이버 로딩
-		 - JDBC 드라이버 로딩되면 [ 자동으로 객체가 생성 ]되고
-		 - [ 데이터베이스와 연동하기 위해 ] [ DriverManager 클래스에 등록 ]된다.
-		- JDBC 드라이버 로딩은 [ 프로그램 수행 시 ** 한 번만 ** ] 필요합니다.
-		*/
+	    
 	    Class.forName(driver); 
-		/* 
-		   - DriverManager 객체로부터 [ 연결된 Connection 객체를 얻어온다. ]
-		*/
+		
 		Connection con = DriverManager.getConnection(url, id, pw); 
 		PreparedStatement st =con.prepareStatement(sql); //쿼리문을 넘겨받아 미리 준비한다.
 		// 일반적인 인덱스 번호와 달리 1부터 인덱스가 시작된다.
@@ -28,7 +23,17 @@
 		ResultSet rs = st.executeQuery();	//위에 쿼리를 조회한 결과가 서버쪽에 만들어짐.
 		
 		rs.next();//서버 쪽에 만든 결과를 가져오기 위해 [ rs의 next 메소드를 호출 ].
-%>    
+String title = rs.getString("TITLE"); 
+Date regdate = rs.getDate("REGDATE");
+String writerId = rs.getString("WRITER_ID");
+String hit = rs.getString("HIT");
+String files = rs.getString("FILES");
+String content = rs.getString("CONTENT");  
+
+rs.close();
+st.close();
+con.close();
+%> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -177,24 +182,24 @@
 							<tbody>
 								<tr>
 									<th>제목</th>
-									<td class="text-align-left text-indent text-strong text-orange" colspan="3"><%=rs.getString("TITLE") %></td>
+									<td class="text-align-left text-indent text-strong text-orange" colspan="3"><%=title %></td>
 								</tr>
 								<tr>
 									<th>작성일</th>
-									<td class="text-align-left text-indent" colspan="3"><%=rs.getDate("REGDATE") %>	</td>
+									<td class="text-align-left text-indent" colspan="3"><%=regdate %></td>
 								</tr>
 								<tr>
 									<th>작성자</th>
-									<td><%=rs.getString("WRITER_ID") %></td>
+									<td><%=writerId %></td>
 									<th>조회수</th>
-									<td><%=rs.getInt("HIT") %></td>
+									<td><%=hit %></td>
 								</tr>
 								<tr>
 									<th>첨부파일</th>
-									<td colspan="3"><%=rs.getString("FILES") %></td>
+									<td colspan="3"><%=files %></td>
 								</tr>
 								<tr class="content">
-									<td colspan="4"><%=rs.getString("CONTENT") %></td>
+									<td colspan="4"><%=content %></td>
 								</tr>
 							</tbody>
 						</table>
@@ -267,8 +272,4 @@
         </footer>
     </body>
     </html>
-     <%
-    rs.close();
-    st.close();
-    con.close();
-    %>
+   
