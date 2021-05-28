@@ -1,39 +1,6 @@
-<%@page import="java.util.Date"%>
-<%@page import="java.sql.PreparedStatement"%>
-<%@page import="java.sql.DriverManager"%>
-<%@page import="java.sql.ResultSet"%>
-<%@page import="java.sql.Statement"%>
-<%@page import="java.sql.Connection"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%  // 뉴렉처 53강 인강 실습부분.
-	    int id1 = Integer.parseInt(request.getParameter("id"));
-		String driver = "oracle.jdbc.driver.OracleDriver"; 
-		String url = "jdbc:oracle:thin:@localhost:1521/xepdb1";// 사용하려는 데이터베이스명을 포함한 URL 기술
-		String id = "NEWLEC"; // 사용자 계정
-	    String pw = "oradb"; // 사용자 계정의 패스워드
-		String sql = "SELECT * FROM NOTICE WHERE ID = ?";				
-	    
-	    Class.forName(driver); 
-		
-		Connection con = DriverManager.getConnection(url, id, pw); 
-		PreparedStatement st =con.prepareStatement(sql); //쿼리문을 넘겨받아 미리 준비한다.
-		// 일반적인 인덱스 번호와 달리 1부터 인덱스가 시작된다.
-		st.setInt(1, id1); // 인덱스 번호, 넣어줄 데이터
-		ResultSet rs = st.executeQuery();	//위에 쿼리를 조회한 결과가 서버쪽에 만들어짐.
-		
-		rs.next();//서버 쪽에 만든 결과를 가져오기 위해 [ rs의 next 메소드를 호출 ].
-String title = rs.getString("TITLE"); 
-Date regdate = rs.getDate("REGDATE");
-String writerId = rs.getString("WRITER_ID");
-String hit = rs.getString("HIT");
-String files = rs.getString("FILES");
-String content = rs.getString("CONTENT");  
 
-rs.close();
-st.close();
-con.close();
-%> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -182,24 +149,25 @@ con.close();
 							<tbody>
 								<tr>
 									<th>제목</th>
-									<td class="text-align-left text-indent text-strong text-orange" colspan="3"><%=title %></td>
+									<td class="text-align-left text-indent text-strong text-orange" colspan="3">
+									<%=request.getAttribute("title") %></td>
 								</tr>
 								<tr>
 									<th>작성일</th>
-									<td class="text-align-left text-indent" colspan="3"><%=regdate %></td>
+									<td class="text-align-left text-indent" colspan="3"><%=request.getAttribute("regdate") %></td>
 								</tr>
 								<tr>
 									<th>작성자</th>
-									<td><%=writerId %></td>
+									<td><%=request.getAttribute("writerId") %></td>
 									<th>조회수</th>
-									<td><%=hit %></td>
+									<td><%=request.getAttribute("hit") %></td>
 								</tr>
 								<tr>
 									<th>첨부파일</th>
-									<td colspan="3"><%=files %></td>
+									<td colspan="3"><%=request.getAttribute("files") %></td>
 								</tr>
 								<tr class="content">
-									<td colspan="4"><%=content %></td>
+									<td colspan="4"><%=request.getAttribute("content") %></td>
 								</tr>
 							</tbody>
 						</table>
