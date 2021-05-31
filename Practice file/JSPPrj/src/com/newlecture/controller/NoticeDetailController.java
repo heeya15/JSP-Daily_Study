@@ -13,6 +13,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.newlecture.web.entity.Notice;
 //아래 주석으로 [ 서블릿과 URL의 매핑정보 ]를 남길 수 있다. 그래서 web.xml 가서 불필요한 설정 필요없음.
 @WebServlet("/notice/detail")
 public class NoticeDetailController extends HttpServlet{
@@ -42,13 +44,16 @@ public class NoticeDetailController extends HttpServlet{
 			String files = rs.getString("FILES");
 			String content = rs.getString("CONTENT");
 			
+			Notice notice = new Notice(id1,title,regdate,writerId,hit,files,content);
+			request.setAttribute("n", notice);
+			/*
 			request.setAttribute("title", title);
 		    request.setAttribute("regdate", regdate);
 		    request.setAttribute("writerId", writerId);
 		    request.setAttribute("hit", hit);
 		    request.setAttribute("files", files);
 		    request.setAttribute("content", content);
-		    
+		    */
 			rs.close();
 			st.close();
 			con.close();
