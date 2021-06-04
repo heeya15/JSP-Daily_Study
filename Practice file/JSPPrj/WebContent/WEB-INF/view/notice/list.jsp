@@ -2,7 +2,7 @@
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 
@@ -174,19 +174,27 @@
 						</tr>
 					</thead>
 					<tbody>
-					<% //list라는 키워드를 가지고 객체를 가져옴
+					
+					<%-- <% //list라는 키워드를 가지고 객체를 가져옴
 					List<Notice> list = (List<Notice>)request.getAttribute("list");
 					for(Notice n : list){ // Notice라는 객체를 하나씩 뽑아오겠다.
 					    pageContext.setAttribute("n",n);	
-					    %>
+					%> --%>
+					<!-- 저장소에 있는 값을 꺼내와서 [ items에 담는다 ].
+					     그리고 반복될 때 마다 "하나씩" 꺼내서 반복해 주기위해 
+					     변수 n으로 설정하여 하나의 Notice 객체를 뽑아와서 (n.컬럼명) 으로 el 표기언어로 사용하겠다. 
+					     즉 아래 forEach가 pageContext 저장소에 담는 역할까지 해준다.
+					  -->
+					<c:forEach var="n" items="${list}" varStatus="st"> 
 					<tr>
-						<td>${n.id}</td>
+						<td>${st.index} / ${n.id}</td>
 						<td class="title indent text-align-left"><a href="detail?id=${n.id }">${n.title}</a></td>
 						<td>${n.writerId}</td>
 						<td>${n.regdate}</td>
 						<td>${n.hit}</td>
-					</tr>						
-					<%} %>				
+					</tr>	
+					</c:forEach>					
+					<%-- <%} %>	 --%>			
 					</tbody>
 				</table>
 			</div>
